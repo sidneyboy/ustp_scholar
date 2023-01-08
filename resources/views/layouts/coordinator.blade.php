@@ -40,7 +40,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SCHOLAR MS<sup></sup></div>
+                <div class="sidebar-brand-text mx-3">COORDINATOR MS<sup></sup></div>
             </a>
 
             <!-- Divider -->
@@ -61,25 +61,17 @@
                 {{ __('Settings') }}
             </div>
 
-            <li class="nav-item {{ Nav::isRoute('scholar_subject') }}">
-                <a class="nav-link" href="{{ route('scholar_subject', ['id' => $scholar->id]) }}">
+            <li class="nav-item {{ Nav::isRoute('coordinator_scholar_list') }}">
+                <a class="nav-link" href="{{ route('coordinator_scholar_list', ['id' => $coordinator->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Subject (+)') }}</span></a>
+                    <span>{{ __('Scholar List') }}</span></a>
             </li>
 
-            <li class="nav-item {{ Nav::isRoute('scholar_request') }}">
-                <a class="nav-link" href="{{ route('scholar_request', ['id' => $scholar->id]) }}">
+            <li class="nav-item {{ Nav::isRoute('coordinator_scholar_request') }}">
+                <a class="nav-link" href="{{ route('coordinator_scholar_request', ['id' => $coordinator->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Request (+)') }}</span></a>
+                    <span>{{ __('Scholar Request') }}</span></a>
             </li>
-
-            <!-- Nav Item - Profile -->
-            {{-- <li class="nav-item {{ Nav::isRoute('profile') }}">
-                <a class="nav-link" href="{{ route('profile') }}">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>{{ __('Profile') }}</span>
-                </a>
-            </li> --}}
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -274,9 +266,9 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span
-                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $scholar->first_name }}</span>
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $coordinator->first_name }}</span>
                                 <figure class="img-profile rounded-circle avatar font-weight-bold"
-                                    data-initial="{{ $scholar->name }}"></figure>
+                                    data-initial="{{ $coordinator->name }}"></figure>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

@@ -7,6 +7,7 @@ use App\Models\Coordinator;
 use App\Models\Scholar;
 use App\Models\Grades;
 use App\Models\Attachments;
+use App\Models\Scholar_request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +44,14 @@ class HomeController extends Controller
     public function login_process(Request $request)
     {
         if ($request->input('login_as') == 'Coordinator') {
-            # code...
+            $coordinator = Coordinator::where('email', $request->input('email'))->first();
+            if (Hash::check($request->input('password'), $coordinator->password)) {
+                return redirect()->route('coordinator_scholar_list', [
+                    'id' => $coordinator->id,
+                ]);
+            } else {
+                return redirect('/')->with('error', 'Wrong Credentials');
+            }
         } elseif ($request->input('login_as') == 'Student') {
             $scholar = Scholar::where('email', $request->input('email'))->first();
             if ($scholar) {
@@ -224,5 +232,54 @@ class HomeController extends Controller
         return redirect()->route('scholar_grades', [
             'id' => $request->input('scholar_id'),
         ])->with('success', 'Successfully added scholar grades');
+    }
+
+    public function scholar_request($id)
+    {
+        $scholar = Scholar::find($id);
+        return view('scholar_request', [
+            'scholar' => $scholar,
+        ])->with('id', $id);
+    }
+
+    public function scholar_request_process(Request $request)
+    {
+        //return $request->input();
+        date_default_timezone_set('Asia/Manila');
+        $date = date('Y-m-d');
+        $new = new Scholar_request([
+            'scholar_id' => $request->input('scholar_id'),
+            'request_name' => $request->input('request_name'),
+            'request_details' => $request->input('request_details'),
+            'request_type' => $request->input('request_type'),
+            'request_date' => $date,
+            'status' => 'Pending',
+        ]);
+
+        $new->save();
+
+        return redirect()->route('scholar_request', [
+            'id' => $request->input('scholar_id'),
+        ])->with('success', 'Request Successfull');
+    }
+
+    public function coordinator_scholar_list($id)
+    {
+        $coordinator = Coordinator::find($id);
+        $scholar = Scholar::get();
+        return view('coordinator_scholar_list', [
+            'coordinator' => $coordinator,
+            'scholar' => $scholar
+        ])->with('id', $id);
+    }
+
+    public function coordinator_scholar_request($id)
+    {
+        $coordinator = Coordinator::find($id);
+        $scholar_request = Scholar_request::get();
+        return view('coordinator_scholar_request', [
+            'coordinator' => $coordinator,
+            'scholar_request' => $scholar_request
+        ])->with('id', $id);
     }
 }

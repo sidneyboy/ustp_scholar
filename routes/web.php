@@ -41,9 +41,11 @@ Route::get('/scholar_subject/{id}', 'HomeController@scholar_subject')->name('sch
 Route::any('/scholar_subject_proceed/', 'HomeController@scholar_subject_proceed')->name('scholar_subject_proceed');
 Route::any('/scholar_subject_process/', 'HomeController@scholar_subject_process')->name('scholar_subject_process');
 
+Route::get('/scholar_request/{id}', 'HomeController@scholar_request')->name('scholar_request');
+Route::post('/scholar_request_process/', 'HomeController@scholar_request_process')->name('scholar_request_process');
 
-
-
+Route::get('/coordinator_scholar_list/{id}', 'HomeController@coordinator_scholar_list')->name('coordinator_scholar_list');
+Route::get('/coordinator_scholar_request/{id}', 'HomeController@coordinator_scholar_request')->name('coordinator_scholar_request');
 
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
