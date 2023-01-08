@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,31 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+
+Route::post('/login_process', 'HomeController@login_process')->name('login_process');
+
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/coordinator', 'HomeController@coordinator')->name('coordinator');
+Route::post('/coordinator_process', 'HomeController@coordinator_process')->name('coordinator_process');
+Route::get('/coordinator_list', 'HomeController@coordinator_list')->name('coordinator_list');
+
+
+Route::get('/scholar', 'HomeController@scholar')->name('scholar');
+Route::post('/scholar_process', 'HomeController@scholar_process')->name('scholar_process');
+
+
+Route::get('/scholar_list', 'HomeController@scholar_list')->name('scholar_list');
+
+Route::get('/scholar_dashboard/{id}', 'HomeController@scholar_dashboard')->name('scholar_dashboard');
+Route::get('/scholar_subject/{id}', 'HomeController@scholar_subject')->name('scholar_subject');
+Route::any('/scholar_subject_proceed/', 'HomeController@scholar_subject_proceed')->name('scholar_subject_proceed');
+Route::any('/scholar_subject_process/', 'HomeController@scholar_subject_process')->name('scholar_subject_process');
+
+
+
+
+
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile', 'ProfileController@update')->name('profile.update');

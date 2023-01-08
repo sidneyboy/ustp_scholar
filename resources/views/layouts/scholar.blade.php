@@ -11,6 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
@@ -24,6 +25,7 @@
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
+
 </head>
 
 <body id="page-top">
@@ -45,8 +47,8 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item {{ Nav::isRoute('home') }}">
-                <a class="nav-link" href="{{ route('home') }}">
+            <li class="nav-item {{ Nav::isRoute('scholar') }}">
+                <a class="nav-link" href="{{ route('scholar') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Dashboard') }}</span></a>
             </li>
@@ -59,28 +61,10 @@
                 {{ __('Settings') }}
             </div>
 
-            <li class="nav-item {{ Nav::isRoute('coordinator') }}">
-                <a class="nav-link" href="{{ route('coordinator') }}">
+            <li class="nav-item {{ Nav::isRoute('scholar_subject') }}">
+                <a class="nav-link" href="{{ route('scholar_subject', ['id' => $scholar->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Coordinator (+)') }}</span></a>
-            </li>
-
-            <li class="nav-item {{ Nav::isRoute('coordinator_list') }}">
-                <a class="nav-link" href="{{ route('coordinator_list') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Coordinator List') }}</span></a>
-            </li>
-
-            <li class="nav-item {{ Nav::isRoute('scholar') }}">
-                <a class="nav-link" href="{{ route('scholar') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Scholar (+)') }}</span></a>
-            </li>
-
-            <li class="nav-item {{ Nav::isRoute('scholar_list') }}">
-                <a class="nav-link" href="{{ route('scholar_list') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Scholar List') }}</span></a>
+                    <span>{{ __('Subject (+)') }}</span></a>
             </li>
 
             <!-- Nav Item - Profile -->
@@ -88,14 +72,6 @@
                 <a class="nav-link" href="{{ route('profile') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>{{ __('Profile') }}</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - About -->
-            <li class="nav-item {{ Nav::isRoute('about') }}">
-                <a class="nav-link" href="{{ route('about') }}">
-                    <i class="fas fa-fw fa-hands-helping"></i>
-                    <span>{{ __('About') }}</span>
                 </a>
             </li>
 
@@ -292,9 +268,9 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span
-                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $scholar->first_name }}</span>
                                 <figure class="img-profile rounded-circle avatar font-weight-bold"
-                                    data-initial="{{ Auth::user()->name[0] }}"></figure>
+                                    data-initial="{{ $scholar->name }}"></figure>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -340,7 +316,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Alejandro RH {{ now()->year }}</span>
+                        <span>Copyright &copy; Scholar System {{ now()->year }}</span>
                     </div>
                 </div>
             </footer>

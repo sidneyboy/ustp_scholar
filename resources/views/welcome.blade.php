@@ -46,7 +46,7 @@
                                 {{ session('error') }}
                             </div>
                         @endif
-                        <form method="POST" action="{{ route('login') }}" class="user">
+                        <form method="POST" action="{{ route('login_process') }}" class="user">
                             @csrf
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -75,6 +75,16 @@
                                         <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
                                     </span>
                                 </div>
+                            </div>
+
+                            <label>Login As</label>
+                            <div class="input-group mb-3">
+                                <select name="login_as" class="form-control rounded-0" required>
+                                    <option value="" default>Select</option>
+                                    <option value="Coordinator">Coordinator</option>
+                                    <option value="Student">Student</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
                             </div>
 
 
