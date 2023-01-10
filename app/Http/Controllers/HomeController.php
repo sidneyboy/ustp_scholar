@@ -230,7 +230,7 @@ class HomeController extends Controller
 
         $new_attachment->save();
 
-        return redirect()->route('scholar_grades', [
+        return redirect()->route('scholar_subject', [
             'id' => $request->input('scholar_id'),
         ])->with('success', 'Successfully added scholar grades');
     }
