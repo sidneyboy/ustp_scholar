@@ -8,6 +8,7 @@ use App\Models\Scholar;
 use App\Models\Grades;
 use App\Models\Attachments;
 use App\Models\Scholar_request;
+use App\Models\Incident_report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -281,5 +282,35 @@ class HomeController extends Controller
             'coordinator' => $coordinator,
             'scholar_request' => $scholar_request
         ])->with('id', $id);
+    }
+
+    public function coordinator_scholar_incident_report($id)
+    {
+        $coordinator = Coordinator::find($id);
+        $scholar = Scholar::get();
+        return view('coordinator_scholar_incident_report', [
+            'coordinator' => $coordinator,
+            'scholar' => $scholar
+        ])->with('id', $id);
+    }
+
+    public function coordinator_scholar_incident_report_process(Request $request)
+    {
+        date_default_timezone_set('Asia/Manila');
+        $date = date('Y-m-d');
+        $new = new Incident_report([
+            'coordinator_id' => $request->input('coordinator_id'),
+            'scholar_id' => $request->input('scholar_id'),
+            'report_type' => $request->input('report_type'),
+            'action_taken' => $request->input('action_taken'),
+            'report_date' => $date,
+            'remarks' => $request->input('remarks'),
+        ]);
+
+        $new->save();
+
+        return redirect()->route('coordinator_scholar_incident_report', [
+            'id' => $request->input('coordinator_id'),
+        ])->with('success', 'Report Successfull');
     }
 }

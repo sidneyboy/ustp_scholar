@@ -67,10 +67,16 @@
                     <span>{{ __('Scholar List') }}</span></a>
             </li>
 
-            <li class="nav-item {{ Nav::isRoute('coordinator_scholar_request') }}">
+            <li class="nav-item {{ Nav::isRoute('coordinator_scholar_incident_report') }}">
                 <a class="nav-link" href="{{ route('coordinator_scholar_request', ['id' => $coordinator->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Scholar Request') }}</span></a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('coordinator_scholar_incident_report') }}">
+                <a class="nav-link" href="{{ route('coordinator_scholar_incident_report', ['id' => $coordinator->id]) }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('Incident Report') }}</span></a>
             </li>
 
             <!-- Divider -->
