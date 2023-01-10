@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('scholar_requests', function (Blueprint $table) {
             $table->id();
             $table->Integer('scholar_id');
-            $table->Integer('request_name');
-            $table->Integer('request_details');
-            $table->Integer('request_type');
-            $table->Integer('request_date');
-            $table->Integer('status')->nullable();
+            $table->string('request_name');
+            $table->string('request_details');
+            $table->string('request_type');
+            $table->string('request_date');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
