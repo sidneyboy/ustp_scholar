@@ -176,9 +176,22 @@ class HomeController extends Controller
     {
         $scholar = Scholar::find($id);
 
+
+
         return view('scholar_dashboard', [
             'scholar' => $scholar,
+
         ]);
+    }
+
+    public function scholar_submission($id)
+    {
+        $scholar = Scholar::find($id);
+        $grades = Grades::where('scholar_id', $id)->get();
+        return view('scholar_submission', [
+            'scholar' => $scholar,
+            'grades' => $grades,
+        ])->with('id', $id);
     }
 
     public function scholar_subject($id)
@@ -233,6 +246,17 @@ class HomeController extends Controller
         return redirect()->route('scholar_subject', [
             'id' => $request->input('scholar_id'),
         ])->with('success', 'Successfully added scholar grades');
+    }
+
+    public function scholar_request_page($id)
+    {
+      
+        $scholar = Scholar::find($id);
+        $request = Scholar_request::where('scholar_id',$id)->get();
+        return view('scholar_request_page', [
+            'scholar' => $scholar,
+            'request' => $request,
+        ])->with('id', $id);
     }
 
     public function scholar_request($id)

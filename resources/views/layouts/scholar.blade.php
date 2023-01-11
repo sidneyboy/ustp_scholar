@@ -61,14 +61,14 @@
                 {{ __('Settings') }}
             </div>
 
-            <li class="nav-item {{ Nav::isRoute('scholar_subject') }}">
-                <a class="nav-link" href="{{ route('scholar_subject', ['id' => $scholar->id]) }}">
+            <li class="nav-item {{ Nav::isRoute('scholar_submission') }}">
+                <a class="nav-link" href="{{ route('scholar_submission', ['id' => $scholar->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Subject (+)') }}</span></a>
             </li>
 
-            <li class="nav-item {{ Nav::isRoute('scholar_request') }}">
-                <a class="nav-link" href="{{ route('scholar_request', ['id' => $scholar->id]) }}">
+            <li class="nav-item {{ Nav::isRoute('scholar_request_page') }}">
+                <a class="nav-link" href="{{ route('scholar_request_page', ['id' => $scholar->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Request (+)') }}</span></a>
             </li>

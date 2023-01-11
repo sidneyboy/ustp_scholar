@@ -37,9 +37,16 @@ Route::post('/scholar_process', 'HomeController@scholar_process')->name('scholar
 Route::get('/scholar_list', 'HomeController@scholar_list')->name('scholar_list');
 
 Route::get('/scholar_dashboard/{id}', 'HomeController@scholar_dashboard')->name('scholar_dashboard');
+
+Route::get('/scholar_submission/{id}', 'HomeController@scholar_submission')->name('scholar_submission');
+
+
 Route::get('/scholar_subject/{id}', 'HomeController@scholar_subject')->name('scholar_subject');
 Route::any('/scholar_subject_proceed/', 'HomeController@scholar_subject_proceed')->name('scholar_subject_proceed');
 Route::any('/scholar_subject_process/', 'HomeController@scholar_subject_process')->name('scholar_subject_process');
+
+Route::get('/scholar_request_page/{id}', 'HomeController@scholar_request_page')->name('scholar_request_page');
+
 
 Route::get('/scholar_request/{id}', 'HomeController@scholar_request')->name('scholar_request');
 Route::post('/scholar_request_process/', 'HomeController@scholar_request_process')->name('scholar_request_process');
