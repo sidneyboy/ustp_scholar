@@ -91,12 +91,6 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="">Status</label>
-                                    <input type="status" class="form-control" required name="status">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
                                     <label for="">Course</label>
                                     <input type="course" class="form-control" required name="course">
                                 </div>

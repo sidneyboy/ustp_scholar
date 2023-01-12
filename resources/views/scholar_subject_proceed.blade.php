@@ -42,7 +42,7 @@
     @endfor
 
     <br />
-    <input type="hidden" value="{{ $id }}" name="scholar_id">
+    <input type="hidden" value="{{ $id }}" name="id">
     <input type="hidden" value="{{ $number_of_subjects }}" name="number_of_subjects">
     <button class="btn btn-success float-right btn-sm" type="submit">Submit</button>
 

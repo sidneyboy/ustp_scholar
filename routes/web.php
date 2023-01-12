@@ -30,6 +30,7 @@ Route::post('/coordinator_process', 'HomeController@coordinator_process')->name(
 Route::get('/coordinator_list', 'HomeController@coordinator_list')->name('coordinator_list');
 
 
+Route::get('/scholar_page', 'HomeController@scholar_page')->name('scholar_page');
 Route::get('/scholar', 'HomeController@scholar')->name('scholar');
 Route::post('/scholar_process', 'HomeController@scholar_process')->name('scholar_process');
 

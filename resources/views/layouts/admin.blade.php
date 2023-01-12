@@ -71,17 +71,17 @@
                     <span>{{ __('Coordinator List') }}</span></a>
             </li>
 
-            <li class="nav-item {{ Nav::isRoute('scholar') }}">
-                <a class="nav-link" href="{{ route('scholar') }}">
+            <li class="nav-item {{ Nav::isRoute('scholar_page') }}">
+                <a class="nav-link" href="{{ route('scholar_page') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Scholar (+)') }}</span></a>
+                    <span>{{ __('Scholar') }}</span></a>
             </li>
 
-            <li class="nav-item {{ Nav::isRoute('scholar_list') }}">
+            {{-- <li class="nav-item {{ Nav::isRoute('scholar_list') }}">
                 <a class="nav-link" href="{{ route('scholar_list') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Scholar List') }}</span></a>
-            </li>
+            </li> --}}
 
             <!-- Nav Item - Profile -->
             <li class="nav-item {{ Nav::isRoute('profile') }}">

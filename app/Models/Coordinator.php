@@ -14,5 +14,6 @@ class Coordinator extends Model
         'last_name',
         'email',
         'password',
+        'user_type',
     ];
 }

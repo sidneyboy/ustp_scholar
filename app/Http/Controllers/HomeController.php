@@ -44,33 +44,37 @@ class HomeController extends Controller
 
     public function login_process(Request $request)
     {
-        if ($request->input('login_as') == 'Coordinator') {
-            $coordinator = Coordinator::where('email', $request->input('email'))->first();
-            if (Hash::check($request->input('password'), $coordinator->password)) {
-                return redirect()->route('coordinator_scholar_list', [
-                    'id' => $coordinator->id,
-                ]);
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+                return redirect('home')->with('login_as', 'Admin');
             } else {
                 return redirect('/')->with('error', 'Wrong Credentials');
             }
-        } elseif ($request->input('login_as') == 'Student') {
-            $scholar = Scholar::where('email', $request->input('email'))->first();
-            if ($scholar) {
-                if ($scholar->password == $request->input('password')) {
-                    return redirect()->route('scholar_dashboard', [
-                        'id' => $scholar->id,
+        } else {
+            $coordinator = Coordinator::where('email', $request->input('email'))->first();
+            if ($coordinator) {
+                if (Hash::check($request->input('password'), $coordinator->password)) {
+                    return redirect()->route('coordinator_scholar_list', [
+                        'id' => $coordinator->id,
                     ]);
                 } else {
                     return redirect('/')->with('error', 'Wrong Credentials');
                 }
             } else {
-                return redirect('/')->with('error', 'Wrong Credentials');
-            }
-        } elseif ($request->input('login_as') == 'Admin') {
-            if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
-                return redirect('home')->with('login_as', 'Admin');
-            } else {
-                return redirect('/')->with('error', 'Wrong Credentials');
+                $scholar = Scholar::where('email', $request->input('email'))->first();
+
+                if ($scholar) {
+                    if ($scholar->password == $request->input('password')) {
+                        return redirect()->route('scholar_dashboard', [
+                            'id' => $scholar->id,
+                        ]);
+                    } else {
+                        return redirect('/')->with('error', 'Wrong Credentials');
+                    }
+                } else {
+                    return redirect('/')->with('error', 'Wrong Credentials');
+                }
             }
         }
     }
@@ -94,6 +98,7 @@ class HomeController extends Controller
             'last_name' => $request->input('last_name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
+            'user_type' => 'coordinator',
         ]);
 
         $new->save();
@@ -114,6 +119,22 @@ class HomeController extends Controller
 
         return view('coordinator_list', compact('widget'), [
             'coordinator' => $coordinator,
+        ]);
+    }
+
+    public function scholar_page()
+    {
+        $users = User::count();
+
+        $widget = [
+            'users' => $users,
+            //...
+        ];
+
+        $scholar = Scholar::orderBy('id', 'desc')->get();
+
+        return view('scholar_page', compact('widget'), [
+            'scholar' => $scholar,
         ]);
     }
 
@@ -149,6 +170,7 @@ class HomeController extends Controller
             'school_year_end' => $request->input('school_year_end'),
             'school' => $request->input('school'),
             'year_level' => $request->input('year_level'),
+            'user_type' => 'scholar',
         ]);
 
         $new->save();
@@ -196,10 +218,10 @@ class HomeController extends Controller
 
     public function scholar_subject($id)
     {
-        $scholar = Scholar::find($id);
+        $coordinator = Coordinator::find($id);
 
         return view('scholar_grades', [
-            'scholar' => $scholar,
+            'coordinator' => $coordinator,
         ])->with('id', $id);
     }
 
@@ -213,6 +235,7 @@ class HomeController extends Controller
 
     public function scholar_subject_process(Request $request)
     {
+        return 'dri ang tiwas unya';
         date_default_timezone_set('Asia/Manila');
         $date = date('Y-m-d');
         for ($i = 0; $i < $request->input('number_of_subjects'); $i++) {
@@ -244,15 +267,15 @@ class HomeController extends Controller
         $new_attachment->save();
 
         return redirect()->route('scholar_subject', [
-            'id' => $request->input('scholar_id'),
+            'id' => $request->input('id'),
         ])->with('success', 'Successfully added scholar grades');
     }
 
     public function scholar_request_page($id)
     {
-      
+
         $scholar = Scholar::find($id);
-        $request = Scholar_request::where('scholar_id',$id)->get();
+        $request = Scholar_request::where('scholar_id', $id)->get();
         return view('scholar_request_page', [
             'scholar' => $scholar,
             'request' => $request,

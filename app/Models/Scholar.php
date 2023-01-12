@@ -27,5 +27,6 @@ class Scholar extends Model
         'school_year_end',
         'school',
         'year_level',
+        'user_type',
     ];
 }

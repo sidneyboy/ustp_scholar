@@ -50,7 +50,7 @@
                             @csrf
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                            <label for="">Username</label>
+                            <label for="">Email</label>
                             <div class="input-group mb-1">
                                 <input id="email" type="email"
                                     class="form-control rounded-0 @error('email') is-invalid @enderror" name="email"
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
 
-                            <label>Login As</label>
+                            {{-- <label>Login As</label>
                             <div class="input-group mb-3">
                                 <select name="login_as" class="form-control rounded-0" required>
                                     <option value="" default>Select</option>
@@ -85,7 +85,7 @@
                                     <option value="Student">Student</option>
                                     <option value="Admin">Admin</option>
                                 </select>
-                            </div>
+                            </div> --}}
 
 
                             <div class="form-group">
