@@ -368,6 +368,61 @@
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+        crossorigin="anonymous"></script>
+    <script src='https://unpkg.com/tesseract.js@4.0.1/dist/tesseract.min.js'></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('input[type=file]').change(function() {
+            // console.dir(this.files[0])
+            $image = this.files[0];
+            Tesseract.recognize(
+                $image,
+                'eng', {
+                    logger: m => console.log(m)
+                }
+            ).then(({
+                data: {
+                    text
+                }
+            }) => {
+                var text_data = text;
+                var id = $('#id').val();
+                $.post({
+                    type: "POST",
+                    url: "/scholar_submission_process",
+                    data: 'text_data=' + text_data + '&id=' + id,
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            })
+        })
+
+        //         $("#scholar_subject_proceed").on('submit', (function(e) {
+        //             e.preventDefault();
+        //             $.ajax({
+        //                 url: "/scholar_subject_proceed",
+        //                 type: "POST",
+        //                 data: new FormData(this),
+        //                 contentType: false,
+        //                 cache: false,
+        //                 processData: false,
+        //                 success: function(data) {
+        //                     $('.loading').hide();
+        //                     $('#show_number_of_subjects').html(data);
+        //                 },
+        //             });
+        //         }));
+    </script>
 </body>
 
 </html>

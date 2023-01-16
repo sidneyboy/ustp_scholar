@@ -216,6 +216,31 @@ class HomeController extends Controller
         ])->with('id', $id);
     }
 
+    public function scholar_submission_process(Request $request)
+    {
+        $data = explode(" ", $request->input('text_data'));
+
+        foreach ($data as $key => $value) {
+            if (str_contains($value, 'CD')) {
+                $subject_code[] = $value;
+            } elseif (str_contains($value, 'DP')) {
+                $description[] = $value;
+            } elseif (str_contains($value, 'UN')) {
+                $units[] = $value;
+            } elseif (str_contains($value, 'SC')) {
+                $section[] = $value;
+            } elseif (str_contains($value, 'MDT')) {
+                $midterm[] = $value;
+            } elseif (str_contains($value, 'FNL')) {
+                $final[] = $value;
+            } elseif (str_contains($value, 'RK-')) {
+                $remarks[] = $value;
+            }
+        }
+
+        return $remarks;
+    }
+
     public function scholar_subject($id)
     {
         $coordinator = Coordinator::find($id);

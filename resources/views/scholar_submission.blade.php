@@ -26,7 +26,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Submission Activity</div>
-                <div class="card-body">
+                {{-- <div class="card-body">
                     <a href="{{ url('scholar_subject',['id' => $id]) }}" class="btn btn-sm float-right btn-info">+ New Subject and Grades</a>
                     <br /><br />
                     <table class="table table-bordered table-hover">
@@ -61,36 +61,20 @@
                             @endif
                         </tbody>
                     </table>
+                </div> --}}
+                <div class="card-body">
+                    <input type="file" class="form-control" name="file" required>
+                    <input type="hidden" value="{{ $scholar->id }}" id="id" name="id">
                 </div>
+                {{-- <div class="card-footer">
+                    <button class="btn btn-success float-right btn-sm" style="margin-bottom: 10px;">Submit</button>
+                </div> --}}
+
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-        crossorigin="anonymous"></script>
-
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        //         $("#scholar_subject_proceed").on('submit', (function(e) {
-        //             e.preventDefault();
-        //             $.ajax({
-        //                 url: "/scholar_subject_proceed",
-        //                 type: "POST",
-        //                 data: new FormData(this),
-        //                 contentType: false,
-        //                 cache: false,
-        //                 processData: false,
-        //                 success: function(data) {
-        //                     $('.loading').hide();
-        //                     $('#show_number_of_subjects').html(data);
-        //                 },
-        //             });
-        //         }));
-    </script>
+    
+  
 
 
 @endsection

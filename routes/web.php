@@ -40,6 +40,9 @@ Route::get('/scholar_list', 'HomeController@scholar_list')->name('scholar_list')
 Route::get('/scholar_dashboard/{id}', 'HomeController@scholar_dashboard')->name('scholar_dashboard');
 
 Route::get('/scholar_submission/{id}', 'HomeController@scholar_submission')->name('scholar_submission');
+Route::post('/scholar_submission_process/', 'HomeController@scholar_submission_process')->name('scholar_submission_process');
+
+
 
 
 Route::get('/scholar_subject/{id}', 'HomeController@scholar_subject')->name('scholar_subject');
