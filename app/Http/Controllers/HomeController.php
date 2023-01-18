@@ -9,6 +9,9 @@ use App\Models\Grades;
 use App\Models\Attachments;
 use App\Models\Scholar_request;
 use App\Models\Incident_report;
+use App\Models\Academmic_year;
+use App\Models\School;
+use App\Models\Grade_details;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -210,23 +213,30 @@ class HomeController extends Controller
     {
         $scholar = Scholar::find($id);
         $grades = Grades::where('scholar_id', $id)->get();
+        $school = School::get();
+        $academic_year = Academmic_year::get();
         return view('scholar_submission', [
             'scholar' => $scholar,
             'grades' => $grades,
+            'school' => $school,
+            'academic_year' => $academic_year,
         ])->with('id', $id);
     }
 
     public function scholar_submission_process(Request $request)
     {
+        date_default_timezone_set('Asia/Manila');
+        $date = date('Y-m-d');
+
         $data = explode(" ", $request->input('text_data'));
 
         foreach ($data as $key => $value) {
             if (str_contains($value, 'CD')) {
                 $subject_code[] = $value;
             } elseif (str_contains($value, 'DP')) {
-                $description[] = $value;
+                $subject_name[] = $value;
             } elseif (str_contains($value, 'UN')) {
-                $units[] = $value;
+                $subject_units[] = $value;
             } elseif (str_contains($value, 'SC')) {
                 $section[] = $value;
             } elseif (str_contains($value, 'MDT')) {
@@ -238,15 +248,63 @@ class HomeController extends Controller
             }
         }
 
-        return $remarks;
+        $new_grade_details = new Grade_details([
+            'scholar_id' => $request->input('id'),
+            'school_id' => $request->input('school_id'),
+            'academic_year_id' => $request->input('academic_year_id'),
+            'semester' => $request->input('semester'),
+            'original_text_from_image' => $request->input('text_data'),
+        ]);
+
+        $new_grade_details->save();
+
+        for ($i = 0; $i < count($subject_code); $i++) {
+            $new = new Grades([
+                'grade_details_id' => $new_grade_details->id,
+                'scholar_id' => $request->input('id'),
+                'subject_code' => $subject_code[$i],
+                'subject_name' => $subject_name[$i],
+                'subject_units' => $subject_units[$i],
+                'section' => $section[$i],
+                'midterm' => $midterm[$i],
+                'final' => $final[$i],
+            ]);
+
+            $new->save();
+        }
+
+        return 'saved';
     }
 
+    public function scholar_submission_process_final(Request $request)
+    {
+        //dd($request->all());
+
+        $grade_details = Grade_details::select('id')->where('scholar_id',$request->input('id'))->latest()->first();
+
+        $file = $request->file('file');
+        $file_name = time() .".". $file->getClientOriginalExtension();
+        $file_file_type = $file->getClientmimeType();
+        $path_file = $file->storeAs('public', $file_name);
+
+        $new = new Attachments([
+            'grade_details_id' => $grade_details->id,
+            'attachment' => $file_name,
+            'scholar_id' => $request->input('id'),
+        ]);
+
+        $new->save();
+
+        return redirect()->route('scholar_submission', ['id' => $request->input('id')])->with('success','Successfully Uploaded. Please wait for email notification');
+    }
     public function scholar_subject($id)
     {
         $coordinator = Coordinator::find($id);
+        $grade_details = Grade_details::get();
 
-        return view('scholar_grades', [
+        return view('scholar_subject', [
             'coordinator' => $coordinator,
+            'grade_details' => $grade_details,
         ])->with('id', $id);
     }
 
@@ -384,5 +442,21 @@ class HomeController extends Controller
         return redirect()->route('coordinator_scholar_incident_report', [
             'id' => $request->input('coordinator_id'),
         ])->with('success', 'Report Successfull');
+    }
+
+    public function scholar_subject_view($id,$grade_id)
+    {
+        $coordinator = Coordinator::find($id);
+        $grade_details = Grade_details::find($grade_id);
+
+        $grades = Grades::where('grade_details_id',$grade_id)->get();
+        
+
+
+        return view('scholar_subject_view',[
+            'grade_details' => $grade_details,
+            'coordinator' => $coordinator,
+            'grades' => $grades,
+        ]);
     }
 }

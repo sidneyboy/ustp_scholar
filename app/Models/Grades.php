@@ -10,6 +10,7 @@ class Grades extends Model
     use HasFactory;
 
     protected $fillable = [
+        'grade_details_id',
         'scholar_id',
         'subject_code',
         'subject_name',
@@ -19,5 +20,9 @@ class Grades extends Model
         'submitted_date',
         'school_year',
         'semester',
+        'midterm',
+        'final',
+        'section',
+        'remarks',
     ];
 }

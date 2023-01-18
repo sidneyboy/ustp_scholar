@@ -41,6 +41,8 @@ Route::get('/scholar_dashboard/{id}', 'HomeController@scholar_dashboard')->name(
 
 Route::get('/scholar_submission/{id}', 'HomeController@scholar_submission')->name('scholar_submission');
 Route::post('/scholar_submission_process/', 'HomeController@scholar_submission_process')->name('scholar_submission_process');
+Route::post('/scholar_submission_process_final/', 'HomeController@scholar_submission_process_final')->name('scholar_submission_process_final');
+
 
 
 
@@ -59,6 +61,9 @@ Route::get('/coordinator_scholar_list/{id}', 'HomeController@coordinator_scholar
 Route::get('/coordinator_scholar_request/{id}', 'HomeController@coordinator_scholar_request')->name('coordinator_scholar_request');
 Route::get('/coordinator_scholar_incident_report/{id}', 'HomeController@coordinator_scholar_incident_report')->name('coordinator_scholar_incident_report');
 Route::post('/coordinator_scholar_incident_report_process/', 'HomeController@coordinator_scholar_incident_report_process')->name('coordinator_scholar_incident_report_process');
+
+Route::get('/scholar_subject_view/{id}/{grade_id}', 'HomeController@scholar_subject_view')->name('scholar_subject_view');
+
 
 
 

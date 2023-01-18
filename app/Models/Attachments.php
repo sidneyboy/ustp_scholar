@@ -10,6 +10,7 @@ class Attachments extends Model
     use HasFactory;
 
     protected $fillable = [
+        'grade_details_id',
         'attachment',
         'scholar_id',
         'status',

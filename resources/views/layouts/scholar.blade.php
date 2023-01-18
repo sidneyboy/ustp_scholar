@@ -380,9 +380,9 @@
 
         $('input[type=file]').change(function() {
             // console.dir(this.files[0])
-            $image = this.files[0];
+            image = this.files[0];
             Tesseract.recognize(
-                $image,
+                image,
                 'eng', {
                     logger: m => console.log(m)
                 }
@@ -393,12 +393,19 @@
             }) => {
                 var text_data = text;
                 var id = $('#id').val();
+                var school_id = $('#school').val();
+                var academic_year_id = $('#academic_year').val();
+                var semester = $('#semester').val();
+
                 $.post({
                     type: "POST",
                     url: "/scholar_submission_process",
-                    data: 'text_data=' + text_data + '&id=' + id,
+                    data: 'text_data=' + text_data + '&id=' + id + '&school_id=' + school_id +
+                        '&academic_year_id=' + academic_year_id + '&semester=' + semester,
                     success: function(data) {
-                        console.log(data);
+                        if (data == 'saved') {
+                            $("#submit").trigger("click");
+                        }
                     },
                     error: function(error) {
                         console.log(error);

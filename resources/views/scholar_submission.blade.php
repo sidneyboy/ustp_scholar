@@ -62,19 +62,50 @@
                         </tbody>
                     </table>
                 </div> --}}
-                <div class="card-body">
-                    <input type="file" class="form-control" name="file" required>
-                    <input type="hidden" value="{{ $scholar->id }}" id="id" name="id">
-                </div>
-                {{-- <div class="card-footer">
-                    <button class="btn btn-success float-right btn-sm" style="margin-bottom: 10px;">Submit</button>
-                </div> --}}
-
+                <form action="{{ route('scholar_submission_process_final') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="">School</label>
+                                <select name="school" id="school" class="form-control" required>
+                                    <option value="" default>Select</option>
+                                    @foreach ($school as $data)
+                                        <option value="{{ $data->id }}">{{ $data->school }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="">Academic Year</label>
+                                <select name="academic_year" id="academic_year" class="form-control" required>
+                                    <option value="" default>Select</option>
+                                    @foreach ($academic_year as $data)
+                                        <option value="{{ $data->id }}">Academic Year - {{ $data->school_year }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="">Semester</label>
+                                <select class="form-control" id="semester" required>
+                                    <option value="" default>Select</option>
+                                    <option value="1st Semester">1st Semester</option>
+                                    <option value="2nd Semester">2nd Semester</option>
+                                    <option value="3rd Semester">3rd Semester</option>
+                                    <option value="Summer">Summer</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="">Grade Upload</label>
+                                <input type="file" class="form-control" accept="image/*" id="file" name="file" required>
+                            </div>
+                        </div>
+                        <input type="hidden" value="{{ $scholar->id }}" id="id" name="id">
+                        <button id="submit" type="submit" style="display: none"></button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    
-  
-
 
 @endsection
