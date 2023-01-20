@@ -24,44 +24,35 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">File Incident Report</div>
-                <form action="{{ route('coordinator_scholar_incident_report_process') }}" method="post">
-                    @csrf
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="">Scholar</label>
-                                <select name="scholar_id" class="form-control" required>
-                                    <option value="" default>Select</option>
-                                    @foreach ($scholar as $data)
-                                        <option value="{{ $data->id }}">{{ $data->first_name }} {{ $data->last_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="">Report Type</label>
-                                <input type="text" class="form-control" name="report_type" required>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="">Action Taken</label>
-                                <textarea class="form-control" name="action_taken" required></textarea>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="">Remarks</label>
-                                <input type="text" class="form-control" name="remarks" required>
-                            </div>
-                            {{-- <div class="col-md-6">
-                                <label for="">Attachment</label>
-                                <input type="text" class="form-control" name="remarks" required>
-                            </div> --}}
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <input type="hidden" value="{{ $id }}" name="coordinator_id">
-                        <button class="btn btn-success float-right btn-sm" style="margin-bottom: 5px">Submit</button>
-                    </div>
-                </form>
+                <div class="card-header">File Incident Report List</div>
+                <div class="card-body">
+                    <table class="table table-bordered table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>Scholar</th>
+                                <th>Report Type</th>
+                                <th>Action Taken</th>
+                                <th>Remarks</th>
+                                <th>Report Date</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($incident_report as $data)
+                                <tr>
+                                    <td>{{ Str::ucfirst($data->scholar->first_name) }}
+                                        {{ Str::ucfirst($data->scholar->last_name) }}</td>
+                                    <td>{{ $data->report_type }}</td>
+                                    <td>{{ $data->action_taken }}</td>
+                                    <td>{{ $data->remarks }}</td>
+                                    <td>{{ date('F j, Y', strtotime($data->created_at)) }}
+                                    </td>
+                                    <td>Btn For Option Ask Them</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

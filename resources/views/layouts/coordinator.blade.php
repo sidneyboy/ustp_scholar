@@ -70,10 +70,10 @@
             <li class="nav-item {{ Nav::isRoute('scholar_subject') }}">
                 <a class="nav-link" href="{{ route('scholar_subject', ['id' => $coordinator->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Scholar Grades') }}</span></a>
+                    <span>{{ __('Submitted Grades') }}</span></a>
             </li>
 
-            <li class="nav-item {{ Nav::isRoute('coordinator_scholar_incident_report') }}">
+            <li class="nav-item {{ Nav::isRoute('coordinator_scholar_request') }}">
                 <a class="nav-link" href="{{ route('coordinator_scholar_request', ['id' => $coordinator->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Scholar Request') }}</span></a>

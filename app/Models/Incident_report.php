@@ -17,4 +17,9 @@ class Incident_report extends Model
         'report_date',
         'remarks',
     ];
+
+    public function scholar()
+    {
+        return $this->belongsTo('App\Models\Scholar', 'scholar_id');
+    }
 }

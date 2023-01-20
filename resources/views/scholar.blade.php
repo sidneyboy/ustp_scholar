@@ -139,6 +139,18 @@
                                     <input type="text" class="form-control" required name="year_level">
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Status</label>
+                                    <select name="status" class="form-control" required>
+                                        <option value="" default>Select</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                        <option value="Graduated">Graduated</option>
+                                        <option value="On Hold">On Hold</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer">

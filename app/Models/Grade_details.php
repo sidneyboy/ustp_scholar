@@ -14,7 +14,8 @@ class Grade_details extends Model
         'school_id',
         'academic_year_id',
         'semester',
-        'original_text_from_image'
+        'original_text_from_image',
+        'status',
     ];
 
     public function scholar()

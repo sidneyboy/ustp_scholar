@@ -63,7 +63,12 @@ Route::get('/coordinator_scholar_incident_report/{id}', 'HomeController@coordina
 Route::post('/coordinator_scholar_incident_report_process/', 'HomeController@coordinator_scholar_incident_report_process')->name('coordinator_scholar_incident_report_process');
 
 Route::get('/scholar_subject_view/{id}/{grade_id}', 'HomeController@scholar_subject_view')->name('scholar_subject_view');
+Route::post('/coordinator_final_edit_of_grades/', 'HomeController@coordinator_final_edit_of_grades')->name('coordinator_final_edit_of_grades');
 
+Route::get('/coordinator_make_incident_report/{id}/{grade_id}/{scholar_id}', 'HomeController@coordinator_make_incident_report')->name('coordinator_make_incident_report');
+
+Route::post('/coordinator_incident_report_process/', 'HomeController@coordinator_incident_report_process')->name('coordinator_incident_report_process');
+Route::post('/coordinator_update_status/', 'HomeController@coordinator_update_status')->name('coordinator_update_status');
 
 
 

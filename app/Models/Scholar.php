@@ -29,4 +29,9 @@ class Scholar extends Model
         'year_level',
         'user_type',
     ];
+
+    public function grade_details()
+    {
+        return $this->hasMany('App\Models\Grade_details', 'scholar_id')->orderBy('id','desc');
+    }
 }

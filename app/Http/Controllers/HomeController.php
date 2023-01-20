@@ -280,10 +280,10 @@ class HomeController extends Controller
     {
         //dd($request->all());
 
-        $grade_details = Grade_details::select('id')->where('scholar_id',$request->input('id'))->latest()->first();
+        $grade_details = Grade_details::select('id')->where('scholar_id', $request->input('id'))->latest()->first();
 
         $file = $request->file('file');
-        $file_name = time() .".". $file->getClientOriginalExtension();
+        $file_name = time() . "." . $file->getClientOriginalExtension();
         $file_file_type = $file->getClientmimeType();
         $path_file = $file->storeAs('public', $file_name);
 
@@ -295,12 +295,12 @@ class HomeController extends Controller
 
         $new->save();
 
-        return redirect()->route('scholar_submission', ['id' => $request->input('id')])->with('success','Successfully Uploaded. Please wait for email notification');
+        return redirect()->route('scholar_submission', ['id' => $request->input('id')])->with('success', 'Successfully Uploaded. Please wait for email notification');
     }
     public function scholar_subject($id)
     {
         $coordinator = Coordinator::find($id);
-        $grade_details = Grade_details::get();
+        $grade_details = Grade_details::where('status', null)->get();
 
         return view('scholar_subject', [
             'coordinator' => $coordinator,
@@ -418,9 +418,11 @@ class HomeController extends Controller
     {
         $coordinator = Coordinator::find($id);
         $scholar = Scholar::get();
+        $incident_report = Incident_report::orderBy('id','desc')->get();
         return view('coordinator_scholar_incident_report', [
             'coordinator' => $coordinator,
-            'scholar' => $scholar
+            'scholar' => $scholar,
+            'incident_report' => $incident_report
         ])->with('id', $id);
     }
 
@@ -444,19 +446,79 @@ class HomeController extends Controller
         ])->with('success', 'Report Successfull');
     }
 
-    public function scholar_subject_view($id,$grade_id)
+    public function scholar_subject_view($id, $grade_id)
     {
         $coordinator = Coordinator::find($id);
         $grade_details = Grade_details::find($grade_id);
 
-        $grades = Grades::where('grade_details_id',$grade_id)->get();
-        
+        $grades = Grades::where('grade_details_id', $grade_id)->get();
 
-
-        return view('scholar_subject_view',[
+        return view('scholar_subject_view', [
             'grade_details' => $grade_details,
             'coordinator' => $coordinator,
             'grades' => $grades,
+            'grade_id' => $grade_id,
         ]);
+    }
+
+    public function coordinator_final_edit_of_grades(Request $request)
+    {
+        Grade_details::where('id', $request->input('grade_details_id'))
+            ->update([
+                'status' => 'Completed',
+            ]);
+
+        foreach ($request->input('id') as $key => $data) {
+            Grades::where('id', $data)
+                ->update([
+                    'subject_code' => $request->input('subject_code')[$data],
+                    'subject_name' => $request->input('subject_name')[$data],
+                    'subject_units' => $request->input('subject_units')[$data],
+                    // 'subject_grades' => $request->input('subject_grades')[$data],
+                    'midterm' => $request->input('midterm')[$data],
+                    'final' => $request->input('final')[$data],
+                    'section' => $request->input('section')[$data],
+                    'remarks' => $request->input('remarks')[$data],
+                ]);
+        }
+
+        return redirect()->route('scholar_subject', [
+            'id' => $request->input('coordinator_id'),
+            'grade_id' => $request->input('grade_details_id'),
+        ])->with('success', 'Work successfully saved');
+    }
+
+    public function coordinator_incident_report_process(Request $request)
+    {
+        date_default_timezone_set('Asia/Manila');
+        $date = date('Y-m-d');
+
+        $new = new Incident_report([
+            'coordinator_id' => $request->input('coordinator_id'),
+            'scholar_id' => $request->input('scholar_id'),
+            'report_type' => $request->input('report_type'),
+            'action_taken' => $request->input('action_taken'),
+            'report_date' => $date,
+            'remarks' => $request->input('remarks'),
+        ]);
+
+        $new->save();
+
+        return redirect()->route('scholar_subject_view', [
+            'id' => $request->input('coordinator_id'),
+            'grade_id' => $request->input('grade_details_id'),
+        ])->with('success', 'Work successfully saved');
+    }
+
+    public function coordinator_update_status(Request $request)
+    {
+        //return $request->input();
+
+        Scholar::where('id', $request->input('scholar_id'))
+            ->update(['status' => $request->input('status')]);
+
+        return redirect()->route('coordinator_scholar_list', [
+            'id' => $request->input('coordinator_id'),
+        ])->with('success', 'Work successfully saved');
     }
 }
