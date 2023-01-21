@@ -14,5 +14,11 @@ class Attachments extends Model
         'attachment',
         'scholar_id',
         'status',
+        'image_type',
     ];
+
+    public function scholar()
+    {
+        return $this->belongsTo('App\Models\Scholar', 'scholar_id');
+    }
 }

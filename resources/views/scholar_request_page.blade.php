@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <a href="{{ url('scholar_request',['id' => $id]) }}" class="btn btn-sm float-right btn-info">+ Request</a>
                     <br /><br />
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover table-sm" id="table">
                         <thead>
                             <tr>
                                 <th>#</th>

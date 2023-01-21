@@ -1,0 +1,40 @@
+incident report
+	- makakita pud si scholar and coordinator 
+	sa incident report. - DONE
+	- ang makita ni scholar kai ang iyaha ra incident report - DONE
+
+scholar
+	- add menu to input COE - DONE
+	
+
+scholar request
+	- admin list sa scholar request
+	- status can be change by (admin)
+		approved 
+		rejected
+	- makakita si coordinator
+	- and makakita pud si scholar sa iyang request
+
+notification table
+	- maka send og deadlines si admin kang scholars
+	- notify si scholar sa changes sa iyang request
+	- notify si scholar sa status sa iyang grades(Coordinator)
+		status: Validated
+			Pending
+	- notify si scholar sa status sa iyang attachment grades(Coordinator)
+		status: Validated 
+			Pending		
+	- notify si scholar sa status sa iyang COE
+		status: Validated
+			Pending(Coordinator) - DONE
+	- makita si admin ani tanan. (COE DONE)
+
+change age to date of birth - automatic system mag kwenta sa edad - DONE
+
+login background - mag hulat lang ko sa ilaha
+
+	
+
+
+
+	

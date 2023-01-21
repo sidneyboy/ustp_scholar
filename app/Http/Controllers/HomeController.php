@@ -50,7 +50,7 @@ class HomeController extends Controller
         $user = User::where('email', $request->email)->first();
         if ($user) {
             if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
-                return redirect('home')->with('login_as', 'Admin');
+                return redirect('coordinator')->with('login_as', 'Admin');
             } else {
                 return redirect('/')->with('error', 'Wrong Credentials');
             }
@@ -69,7 +69,7 @@ class HomeController extends Controller
 
                 if ($scholar) {
                     if ($scholar->password == $request->input('password')) {
-                        return redirect()->route('scholar_dashboard', [
+                        return redirect()->route('scholar_submission', [
                             'id' => $scholar->id,
                         ]);
                     } else {
@@ -159,7 +159,7 @@ class HomeController extends Controller
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'birthday' => $request->input('birthday'),
-            'age' => $request->input('age'),
+            'age' => 'none',
             'address' => $request->input('address'),
             'number' => $request->input('number'),
             'gender' => $request->input('gender'),
@@ -418,7 +418,7 @@ class HomeController extends Controller
     {
         $coordinator = Coordinator::find($id);
         $scholar = Scholar::get();
-        $incident_report = Incident_report::orderBy('id','desc')->get();
+        $incident_report = Incident_report::orderBy('id', 'desc')->get();
         return view('coordinator_scholar_incident_report', [
             'coordinator' => $coordinator,
             'scholar' => $scholar,
@@ -519,6 +519,108 @@ class HomeController extends Controller
 
         return redirect()->route('coordinator_scholar_list', [
             'id' => $request->input('coordinator_id'),
+        ])->with('success', 'Work successfully saved');
+    }
+
+    public function admin_incident_report_list()
+    {
+        $users = User::count();
+
+        $widget = [
+            'users' => $users,
+            //...
+        ];
+
+        $incident_report = Incident_report::orderBy('id', 'desc')->get();
+
+        return view('admin_incident_report_list', compact('widget'), [
+            'incident_report' => $incident_report,
+        ]);
+    }
+
+    public function scholar_incident_report_page($id)
+    {
+        $users = User::count();
+
+        $widget = [
+            'users' => $users,
+            //...
+        ];
+
+        $scholar = scholar::find($id);
+
+        $incident_report = Incident_report::where('scholar_id', $id)->orderBy('id', 'desc')->get();
+
+        return view('scholar_incident_report_page', compact('widget'), [
+            'incident_report' => $incident_report,
+            'scholar' => $scholar,
+        ]);
+    }
+
+    public function scholar_upload_coe($id)
+    {
+        $users = User::count();
+
+        $widget = [
+            'users' => $users,
+            //...
+        ];
+
+        $scholar = scholar::find($id);
+
+        return view('scholar_upload_coe', compact('widget'), [
+            'scholar' => $scholar,
+        ]);
+    }
+
+    public function scholar_upload_coe_process(Request $request)
+    {
+        //dd($request->all());
+
+        $file = $request->file('file');
+        $file_name = time() . "." . $file->getClientOriginalExtension();
+        $file_file_type = $file->getClientmimeType();
+        $path_file = $file->storeAs('public', $file_name);
+
+        $new = new Attachments([
+            'attachment' => $file_name,
+            'scholar_id' => $request->input('id'),
+            'status' => 'Pending',
+            'image_type' => 'coe',
+        ]);
+
+        $new->save();
+
+        return redirect()->route('scholar_upload_coe', [
+            'id' => $request->input('id'),
+        ])->with('success', 'Work successfully saved');
+    }
+
+    public function coordinator_scholar_coe($id)
+    {
+        $users = User::count();
+
+        $widget = [
+            'users' => $users,
+            //...
+        ];
+
+        $attachments = Attachments::where('status', 'Pending')->orderBy('id', 'desc')->get();
+        $coordinator = Coordinator::find($id);
+
+        return view('coordinator_scholar_coe', compact('widget'), [
+            'attachments' => $attachments,
+            'coordinator' => $coordinator,
+        ]);
+    }
+
+    public function coordinator_scholar_coe_process($id, $attachment_id)
+    {
+        Attachments::where('id', $attachment_id)
+            ->update(['status' => 'Validated']);
+
+        return redirect()->route('coordinator_scholar_coe', [
+            'id' => $id,
         ])->with('success', 'Work successfully saved');
     }
 }

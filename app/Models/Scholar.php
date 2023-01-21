@@ -34,4 +34,9 @@ class Scholar extends Model
     {
         return $this->hasMany('App\Models\Grade_details', 'scholar_id')->orderBy('id','desc');
     }
+
+    public function attachments()
+    {
+        return $this->hasMany('App\Models\Attachments', 'scholar_id')->orderBy('id','desc');
+    }
 }

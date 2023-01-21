@@ -18,7 +18,7 @@ return new class extends Migration
             $table->Integer('coordinator_id');
             $table->Integer('scholar_id');
             $table->string('report_type');
-            $table->string('action_taken');
+            $table->string('action_taken')->nullable();
             $table->string('report_date');
             $table->string('remarks');
             $table->timestamps();

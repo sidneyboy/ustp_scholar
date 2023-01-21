@@ -1,7 +1,6 @@
-@extends('layouts.coordinator')
+@extends('layouts.admin')
 
 @section('main-content')
-    <!-- Page Heading -->
 
     @if (session('success'))
         <div class="alert alert-success border-left-success alert-dismissible fade show" role="alert">
@@ -25,31 +24,30 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Submission of Grades</div>
+                <div class="card-header">File Incident Report List</div>
                 <div class="card-body">
                     <table class="table table-bordered table-sm table-hover" id="table">
                         <thead>
                             <tr>
-                                <td>View Grades</td>
-                                <td>Scholar</td>
-                                <td>School</td>
-                                <td>Academic Year</td>
-                                <td>Semester</td>
-                                <td>Date Submitted</td>
+                                <th>Scholar</th>
+                                <th>Report Type</th>
+                                <th>Action Taken</th>
+                                <th>Remarks</th>
+                                <th>Report Date</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($grade_details as $data)
+                            @foreach ($incident_report as $data)
                                 <tr>
-                                    <td><a href="{{ url('scholar_subject_view',[
-                                        'id' => $id,
-                                        'grade_id' => $data->id
-                                    ]) }}" class="btn btn-sm btn-info btn-block">View</a></td>
-                                    <td>{{ $data->scholar->first_name }} {{ $data->scholar->last_name }}</td>
-                                    <td>{{ $data->school->school }}</td>
-                                    <td>{{ $data->academ->school_year }}</td>
-                                    <td>{{ $data->semester }}</td>
-                                    <td>{{ date('F j, Y', strtotime($data->created_at)) }}</td>
+                                    <td>{{ Str::ucfirst($data->scholar->first_name) }}
+                                        {{ Str::ucfirst($data->scholar->last_name) }}</td>
+                                    <td>{{ $data->report_type }}</td>
+                                    <td>{{ $data->action_taken }}</td>
+                                    <td>{{ $data->remarks }}</td>
+                                    <td>{{ date('F j, Y', strtotime($data->created_at)) }}
+                                    </td>
+                                    <td>{{ $data->status }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('Attachments', function (Blueprint $table) {
-            $table->Integer('grade_details_id');
+            $table->Integer('grade_details_id')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('Attachments', function (Blueprint $table) {
-            $table->dropColumn('grade_details_id');
+            $table->dropColumn('grade_details_id')->nullable();
         });
     }
 };

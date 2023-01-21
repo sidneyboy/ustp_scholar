@@ -13,10 +13,17 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
     <title>Firm</title>
+
+    {{-- <style>
+        body {
+            background-image: url({{ asset('img/dost_background_3.png') }});
+        }
+    </style> --}}
 </head>
 
 <body>
     <div class="container">
+        {{-- <img src="{{ asset('/img/dostlogo.png') }}" style="width:30%" alt=""> --}}
         <br /><br />
         <div class="row justify-content-center">
             <div class="col-md-4">
@@ -77,24 +84,12 @@
                                 </div>
                             </div>
 
-                            {{-- <label>Login As</label>
-                            <div class="input-group mb-3">
-                                <select name="login_as" class="form-control rounded-0" required>
-                                    <option value="" default>Select</option>
-                                    <option value="Coordinator">Coordinator</option>
-                                    <option value="Student">Student</option>
-                                    <option value="Admin">Admin</option>
-                                </select>
-                            </div> --}}
-
-
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary rounded-0 btn-block">
                                     {{ __('Login') }}
                                 </button>
                             </div>
                         </form>
-
                         <hr>
                     </div>
                 </div>

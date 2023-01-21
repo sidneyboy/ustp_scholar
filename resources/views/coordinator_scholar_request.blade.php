@@ -28,7 +28,7 @@
                 <div class="card-header">Scholar Request</div>
                 <div class="card-body">
                     <div class="table table-responsive">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover table-sm" id="table">
                             <thead>
                                 <tr>
                                     <th>Full Name</th>

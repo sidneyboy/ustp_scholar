@@ -70,7 +70,14 @@ Route::get('/coordinator_make_incident_report/{id}/{grade_id}/{scholar_id}', 'Ho
 Route::post('/coordinator_incident_report_process/', 'HomeController@coordinator_incident_report_process')->name('coordinator_incident_report_process');
 Route::post('/coordinator_update_status/', 'HomeController@coordinator_update_status')->name('coordinator_update_status');
 
+Route::get('/admin_incident_report_list/', 'HomeController@admin_incident_report_list')->name('admin_incident_report_list');
 
+Route::get('/scholar_incident_report_page/{id}', 'HomeController@scholar_incident_report_page')->name('scholar_incident_report_page');
+Route::get('/scholar_upload_coe/{id}', 'HomeController@scholar_upload_coe')->name('scholar_upload_coe');
+Route::post('/scholar_upload_coe_process/', 'HomeController@scholar_upload_coe_process')->name('scholar_upload_coe_process');
+
+Route::get('/coordinator_scholar_coe/{id}', 'HomeController@coordinator_scholar_coe')->name('coordinator_scholar_coe');
+Route::get('/coordinator_scholar_coe_process/{id}/{attachment_id}', 'HomeController@coordinator_scholar_coe_process')->name('coordinator_scholar_coe_process');
 
 
 Route::get('/profile', 'ProfileController@index')->name('profile');

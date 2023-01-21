@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attachments', function (Blueprint $table) {
-            $table->id();
-            $table->Integer('scholar_id')->nullable();
-            $table->string('attachment')->nullable();
-            $table->string('status')->nullable();
-            $table->timestamps();
+        Schema::table('Attachments', function (Blueprint $table) {
+            $table->string('image_type')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attachments');
+        Schema::table('Attachments', function (Blueprint $table) {
+            $table->dropColumn('image_type')->nullable();
+        });
     }
 };

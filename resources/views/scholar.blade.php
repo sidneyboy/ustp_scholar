@@ -49,12 +49,12 @@
                                     <input type="date" class="form-control" required name="birthday">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            {{-- <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Age</label>
-                                    <input type="number" min="1" class="form-control" required name="age">
+                                    <input type="date" class="form-control" required name="age">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Address</label>

@@ -25,7 +25,7 @@
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 </head>
 
 <body id="page-top">
@@ -66,11 +66,18 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Scholar List') }}</span></a>
             </li>
+            
 
             <li class="nav-item {{ Nav::isRoute('scholar_subject') }}">
                 <a class="nav-link" href="{{ route('scholar_subject', ['id' => $coordinator->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Submitted Grades') }}</span></a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('coordinator_scholar_coe') }}">
+                <a class="nav-link" href="{{ route('coordinator_scholar_coe', ['id' => $coordinator->id]) }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('Scholar COE') }}</span></a>
             </li>
 
             <li class="nav-item {{ Nav::isRoute('coordinator_scholar_request') }}">
@@ -80,7 +87,8 @@
             </li>
 
             <li class="nav-item {{ Nav::isRoute('coordinator_scholar_incident_report') }}">
-                <a class="nav-link" href="{{ route('coordinator_scholar_incident_report', ['id' => $coordinator->id]) }}">
+                <a class="nav-link"
+                    href="{{ route('coordinator_scholar_incident_report', ['id' => $coordinator->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Incident Report') }}</span></a>
             </li>
@@ -110,20 +118,6 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small"
-                                placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -136,7 +130,7 @@
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
+                                {{-- <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small"
                                             placeholder="Search for..." aria-label="Search"
@@ -147,12 +141,12 @@
                                             </button>
                                         </div>
                                     </div>
-                                </form>
+                                </form> --}}
                             </div>
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        {{-- <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
@@ -202,10 +196,10 @@
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All
                                     Alerts</a>
                             </div>
-                        </li>
+                        </li> --}}
 
                         <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        {{-- <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
@@ -269,7 +263,7 @@
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More
                                     Messages</a>
                             </div>
-                        </li>
+                        </li> --}}
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -285,7 +279,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                {{-- <a class="dropdown-item" href="{{ route('profile') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Profile') }}
                                 </a>
@@ -296,7 +290,7 @@
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Activity Log') }}
-                                </a>
+                                </a> --}}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal"
                                     data-target="#logoutModal">
@@ -372,6 +366,13 @@
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();
+        });
+    </script>
 </body>
 
 </html>

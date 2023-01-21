@@ -25,6 +25,7 @@
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 
 </head>
 
@@ -64,7 +65,19 @@
             <li class="nav-item {{ Nav::isRoute('scholar_submission') }}">
                 <a class="nav-link" href="{{ route('scholar_submission', ['id' => $scholar->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Subject (+)') }}</span></a>
+                    <span>{{ __('Upload Grades (+)') }}</span></a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('scholar_upload_coe') }}">
+                <a class="nav-link" href="{{ route('scholar_upload_coe', ['id' => $scholar->id]) }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('Upload COE (+)') }}</span></a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('scholar_incident_report_page') }}">
+                <a class="nav-link" href="{{ route('scholar_incident_report_page', ['id' => $scholar->id]) }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('IR List (+)') }}</span></a>
             </li>
 
             <li class="nav-item {{ Nav::isRoute('scholar_request_page') }}">
@@ -107,7 +120,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
+                    {{-- <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small"
@@ -118,7 +131,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -148,7 +161,7 @@
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        {{-- <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
@@ -198,10 +211,10 @@
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All
                                     Alerts</a>
                             </div>
-                        </li>
+                        </li> --}}
 
                         <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        {{-- <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
@@ -265,7 +278,7 @@
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More
                                     Messages</a>
                             </div>
-                        </li>
+                        </li> --}}
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -371,6 +384,13 @@
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
         crossorigin="anonymous"></script>
     <script src='https://unpkg.com/tesseract.js@4.0.1/dist/tesseract.min.js'></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();
+        });
+    </script>
     <script>
         $.ajaxSetup({
             headers: {

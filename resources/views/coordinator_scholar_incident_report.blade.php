@@ -26,7 +26,7 @@
             <div class="card">
                 <div class="card-header">File Incident Report List</div>
                 <div class="card-body">
-                    <table class="table table-bordered table-sm table-hover">
+                    <table class="table table-bordered table-sm table-hover" id="table">
                         <thead>
                             <tr>
                                 <th>Scholar</th>

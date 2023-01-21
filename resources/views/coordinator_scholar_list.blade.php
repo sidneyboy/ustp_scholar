@@ -28,9 +28,8 @@
                 <div class="card-header">Scholar List</div>
                 <div class="card-body">
                     <div class="table table-responsive">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover" id="table">
                             <thead>
-
                                 <th>Full Name</th>
                                 <th>Course</th>
                                 <th>Start</th>
@@ -41,7 +40,8 @@
                                 <th>Year Level</th>
                                 <th>Status</th>
                                 <th>More Info</th>
-                                <th>Submitted Grades</th>
+                                <th>Grades</th>
+                                <th>COE</th>
                             </thead>
                             <tbody>
                                 @foreach ($scholar as $data)
@@ -156,7 +156,13 @@
                                                                 <tbody>
                                                                     <tr>
                                                                         <td>{{ $data->birthday }}</td>
-                                                                        <td>{{ $data->age }}</td>
+                                                                        <td>
+                                                                            @php
+                                                                                $today = date('Y-m-d');
+                                                                                $diff = date_diff(date_create($data->birthday), date_create($today));
+                                                                                echo $diff->format('%y');
+                                                                            @endphp
+                                                                        </td>
                                                                         <td>{{ $data->address }}</td>
                                                                         <td>{{ $data->number }}</td>
                                                                         <td>{{ $data->gender }}</td>
@@ -229,6 +235,63 @@
                                                                                     'grades' => $grades->id,
                                                                                 ]) }}"
                                                                                         class="btn btn-sm btn-info btn-block">Show</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-sm btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                                data-target="#exampleModalcoe{{ $data->id }}">
+                                                Show
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModalcoe{{ $data->id }}" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Submitted COE
+                                                            </h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-bordered table-hover table-sm">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Scholar</th>
+                                                                        <th>Date Submitted</th>
+                                                                        <th>Status</th>
+                                                                        <th>Coe</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($data->attachments as $attachment)
+                                                                        @if ($attachment->image_type == 'coe')
+                                                                            <tr>
+                                                                                <td>{{ $data->first_name }} {{ $data->last_name }}</td>
+                                                                                <td>{{ date('F j, Y', strtotime($attachment->created_at)) }}
+                                                                                </td>
+                                                                                <td>{{ $attachment->status }}</td>
+                                                                                <td><a href="{{ asset('/storage/'. $attachment->attachment) }}" target="_blank">View COE</a>
+                                                                                
+                                                                                    
+                                                                                
                                                                                 </td>
                                                                             </tr>
                                                                         @endif
