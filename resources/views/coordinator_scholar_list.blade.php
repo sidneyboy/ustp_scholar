@@ -216,28 +216,26 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     @foreach ($data->grade_details as $grades)
-                                                                        @if ($grades->status == 'Completed')
-                                                                            <tr>
-                                                                                <td>{{ $grades->school->school }}</td>
-                                                                                <td>{{ $grades->academ->school_year }}</td>
-                                                                                <td>{{ $grades->semester }}</td>
-                                                                                <td>
-                                                                                    @if ($grades->status == null)
-                                                                                        Pending
-                                                                                    @else
-                                                                                        {{ $grades->status }}
-                                                                                    @endif
-                                                                                </td>
-                                                                                <td>{{ date('F j, Y', strtotime($grades->created_at)) }}
-                                                                                </td>
-                                                                                <td><a href="{{ url('scholar_subject_view', [
-                                                                                    'id' => $id,
-                                                                                    'grades' => $grades->id,
-                                                                                ]) }}"
-                                                                                        class="btn btn-sm btn-info btn-block">Show</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        @endif
+                                                                        <tr>
+                                                                            <td>{{ $grades->school->school }}</td>
+                                                                            <td>{{ $grades->academ->school_year }}</td>
+                                                                            <td>{{ $grades->semester }}</td>
+                                                                            <td>
+                                                                                @if ($grades->status == null)
+                                                                                    Pending
+                                                                                @else
+                                                                                    {{ $grades->status }}
+                                                                                @endif
+                                                                            </td>
+                                                                            <td>{{ date('F j, Y', strtotime($grades->created_at)) }}
+                                                                            </td>
+                                                                            <td><a href="{{ url('scholar_subject_view', [
+                                                                                'id' => $id,
+                                                                                'grades' => $grades->id,
+                                                                            ]) }}"
+                                                                                    class="btn btn-sm btn-info btn-block">Show</a>
+                                                                            </td>
+                                                                        </tr>
                                                                     @endforeach
                                                                 </tbody>
                                                             </table>
@@ -258,8 +256,9 @@
                                             </button>
 
                                             <!-- Modal -->
-                                            <div class="modal fade" id="exampleModalcoe{{ $data->id }}" tabindex="-1" role="dialog"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="exampleModalcoe{{ $data->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -284,14 +283,16 @@
                                                                     @foreach ($data->attachments as $attachment)
                                                                         @if ($attachment->image_type == 'coe')
                                                                             <tr>
-                                                                                <td>{{ $data->first_name }} {{ $data->last_name }}</td>
+                                                                                <td>{{ $data->first_name }}
+                                                                                    {{ $data->last_name }}</td>
                                                                                 <td>{{ date('F j, Y', strtotime($attachment->created_at)) }}
                                                                                 </td>
                                                                                 <td>{{ $attachment->status }}</td>
-                                                                                <td><a href="{{ asset('/storage/'. $attachment->attachment) }}" target="_blank">View COE</a>
-                                                                                
-                                                                                    
-                                                                                
+                                                                                <td><a href="{{ asset('/storage/' . $attachment->attachment) }}"
+                                                                                        target="_blank">View COE</a>
+
+
+
                                                                                 </td>
                                                                             </tr>
                                                                         @endif

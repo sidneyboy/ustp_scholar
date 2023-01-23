@@ -20,10 +20,10 @@ notification table
 	- notify si scholar sa changes sa iyang request
 	- notify si scholar sa status sa iyang grades(Coordinator)
 		status: Validated
-			Pending
+			Pending - DONE
 	- notify si scholar sa status sa iyang attachment grades(Coordinator)
 		status: Validated 
-			Pending		
+			Pending - DONE
 	- notify si scholar sa status sa iyang COE
 		status: Validated
 			Pending(Coordinator) - DONE
@@ -31,7 +31,7 @@ notification table
 
 change age to date of birth - automatic system mag kwenta sa edad - DONE
 
-login background - mag hulat lang ko sa ilaha
+login background - mag hulat lang ko sa ilaha - DONE
 
 	
 

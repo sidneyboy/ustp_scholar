@@ -34,7 +34,6 @@
                                 <th>Action Taken</th>
                                 <th>Remarks</th>
                                 <th>Report Date</th>
-                                <th>Option</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,7 +46,7 @@
                                     <td>{{ $data->remarks }}</td>
                                     <td>{{ date('F j, Y', strtotime($data->created_at)) }}
                                     </td>
-                                    <td>Btn For Option Ask Them</td>
+                                    {{-- <td>Btn For Option Ask Them</td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

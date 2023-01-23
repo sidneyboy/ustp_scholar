@@ -46,7 +46,7 @@
                                 @for ($i = 0; $i < count($request); $i++)
                                     <tr>
                                         <td>{{ $i + 1 }}</td>
-                                        <td>{{ $request[$i]->status }}</td>
+                                        <td>{{ $request[$i]->status }} </td>
                                         <td>{{ $request[$i]->request_name }}</td>
                                         <td>{{ $request[$i]->request_details }}</td>
                                         <td>{{ $request[$i]->request_type }}</td>

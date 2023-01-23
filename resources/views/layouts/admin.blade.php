@@ -85,6 +85,12 @@
                     <span>{{ __('IR List') }}</span></a>
             </li>
 
+            <li class="nav-item {{ Nav::isRoute('admin_scholar_request_list') }}">
+                <a class="nav-link" href="{{ route('admin_scholar_request_list') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('Scholar Request') }}</span></a>
+            </li>
+
             {{-- <li class="nav-item {{ Nav::isRoute('scholar_list') }}">
                 <a class="nav-link" href="{{ route('scholar_list') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -92,7 +98,7 @@
             </li> --}}
 
             <!-- Nav Item - Profile -->
-            <li class="nav-item {{ Nav::isRoute('profile') }}">
+            {{-- <li class="nav-item {{ Nav::isRoute('profile') }}">
                 <a class="nav-link" href="{{ route('profile') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>{{ __('Profile') }}</span>
@@ -105,7 +111,7 @@
                     <i class="fas fa-fw fa-hands-helping"></i>
                     <span>{{ __('About') }}</span>
                 </a>
-            </li>
+            </li> --}}
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -307,7 +313,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                {{-- <a class="dropdown-item" href="{{ route('profile') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Profile') }}
                                 </a>
@@ -318,8 +324,8 @@
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Activity Log') }}
-                                </a>
-                                <div class="dropdown-divider"></div>
+                                </a> --}}
+                                {{-- <div class="dropdown-divider"></div> --}}
                                 <a class="dropdown-item" href="#" data-toggle="modal"
                                     data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

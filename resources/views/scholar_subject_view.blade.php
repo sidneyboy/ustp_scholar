@@ -25,68 +25,76 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ Str::ucfirst($grade_details->scholar->first_name) }}
+                <div class="card-header" style="font-weight: bold;">{{ Str::ucfirst($grade_details->scholar->first_name) }}
                     {{ Str::ucfirst($grade_details->scholar->last_name) }}'s Grades
 
-                    <!-- Button trigger modal -->
-                    <button type="button" class="float-right btn btn-sm btn-danger" data-toggle="modal"
-                        data-target="#exampleModalincident{{ $grade_details->id }}">
-                        Incident Report
-                    </button>
+                    @if ($grade_details->status == 'Pending')
+                        <!-- Button trigger modal -->
+                        <button type="button" class="float-right btn btn-sm btn-danger" data-toggle="modal"
+                            data-target="#exampleModalincident{{ $grade_details->id }}">
+                            Incident Report
+                        </button>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalincident{{ $grade_details->id }}" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Create Incident Report</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalincident{{ $grade_details->id }}" tabindex="-1"
+                            role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Create Incident Report</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="{{ route('coordinator_incident_report_process') }}" method="post">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="">Scholar Name</label>
+                                                <input type="text" class="form-control" required disabled
+                                                    value="{{ ucfirst($grade_details->scholar->first_name) . ' ' . ucfirst($grade_details->scholar->first_name) }}">
+                                                <input type="hidden" name="scholar_id"
+                                                    value="{{ $grade_details->scholar_id }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Report Type</label>
+                                                <select name="report_type" id="report_type" class="form-control" required>
+                                                    <option value="" default>Select</option>
+                                                    <option value="Grade Discrepancy">Grade Discrepancy</option>
+                                                    <option value="Forge Signature">Forge Signature</option>
+                                                    <option value="No Signature">No Signature</option>
+                                                    <option value="Others">Others</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Action Taken</label>
+                                                {{-- <textarea name="action_taken" class="form-control" required cols="30" rows="5"></textarea> --}}
+                                                <select name="action_taken" class="form-control" required>
+                                                    <option value="" select>Select</option>
+                                                    <option value="Pending">Pending</option>
+                                                    <option value="Not Guilty">Not Guilty</option>
+                                                    <option value="Terminated">Terminated</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Remarks</label>
+                                                <input type="text" class="form-control" name="remarks" required>
+                                                <input type="hidden" name="coordinator_id" value="{{ $coordinator->id }}">
+                                                <input type="hidden" name="scholar_id"
+                                                    value="{{ $grade_details->scholar_id }}">
+                                                <input type="hidden" name="grade_details_id" value="{{ $grade_id }}">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <form action="{{ route('coordinator_incident_report_process') }}" method="post">
-                                    @csrf
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="">Scholar Name</label>
-                                            <input type="text" class="form-control" required disabled
-                                                value="{{ ucfirst($grade_details->scholar->first_name) . ' ' . ucfirst($grade_details->scholar->first_name) }}">
-                                            <input type="hidden" name="scholar_id"
-                                                value="{{ $grade_details->scholar_id }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Report Type</label>
-                                            <select name="report_type" id="report_type" class="form-control" required>
-                                                <option value="" default>Select</option>
-                                                <option value="Grade Discrepancy">Grade Discrepancy</option>
-                                                <option value="Forge Signature">Forge Signature</option>
-                                                <option value="No Signature">No Signature</option>
-                                                <option value="Others">Others</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Action Taken</label>
-                                            <textarea name="action_taken" class="form-control" required cols="30" rows="5"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Remarks</label>
-                                            <input type="text" class="form-control" name="remarks" required>
-                                            <input type="hidden" name="coordinator_id" value="{{ $coordinator->id }}">
-                                            <input type="hidden" name="scholar_id"
-                                                value="{{ $grade_details->scholar_id }}">
-                                            <input type="hidden" name="grade_details_id" value="{{ $grade_id }}">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-sm btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-sm btn-success">Save</button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
                 <form action="{{ route('coordinator_final_edit_of_grades') }}" method="post">
                     @csrf
@@ -96,6 +104,8 @@
                                 <label for="">Original Image:</label><br />
                                 <img src="{{ asset('/storage/' . $grade_details->attachment->attachment) }}"
                                     alt="">
+
+                                <input type="hidden" value="{{ $grade_details->attachment->id }}" name="attachment_id">
                             </div>
 
                             <div class="col-md-12">
@@ -151,11 +161,8 @@
                     <div class="card-footer">
                         <input type="hidden" name="coordinator_id" value="{{ $coordinator->id }}">
                         <input type="hidden" name="grade_details_id" value="{{ $grade_id }}">
-
-
-
                         <button class="btn btn-sm float-right btn-success" style="margin-bottom: 10px;"
-                            type="submit">Save</button>
+                            type="submit">Validate</button>
 
                     </div>
                 </form>

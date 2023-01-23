@@ -254,6 +254,7 @@ class HomeController extends Controller
             'academic_year_id' => $request->input('academic_year_id'),
             'semester' => $request->input('semester'),
             'original_text_from_image' => $request->input('text_data'),
+            'status' => 'Pending',
         ]);
 
         $new_grade_details->save();
@@ -291,6 +292,7 @@ class HomeController extends Controller
             'grade_details_id' => $grade_details->id,
             'attachment' => $file_name,
             'scholar_id' => $request->input('id'),
+            'status' => 'Pending',
         ]);
 
         $new->save();
@@ -300,7 +302,7 @@ class HomeController extends Controller
     public function scholar_subject($id)
     {
         $coordinator = Coordinator::find($id);
-        $grade_details = Grade_details::where('status', null)->get();
+        $grade_details = Grade_details::where('status', 'Pending')->get();
 
         return view('scholar_subject', [
             'coordinator' => $coordinator,
@@ -465,8 +467,16 @@ class HomeController extends Controller
     {
         Grade_details::where('id', $request->input('grade_details_id'))
             ->update([
-                'status' => 'Completed',
+                'status' => 'Validated',
             ]);
+
+
+        Attachments::where('id', $request->input('attachment_id'))
+            ->update([
+                'status' => 'Validated',
+            ]);
+
+
 
         foreach ($request->input('id') as $key => $data) {
             Grades::where('id', $data)
@@ -623,4 +633,30 @@ class HomeController extends Controller
             'id' => $id,
         ])->with('success', 'Work successfully saved');
     }
+
+    public function admin_scholar_request_list()
+    {
+        $users = User::count();
+
+        $widget = [
+            'users' => $users,
+            //...
+        ];
+
+        $scholar_request = Scholar_request::orderBy('id','desc')->get();
+
+        return view('admin_scholar_request_list', compact('widget'), [
+            'scholar_request' => $scholar_request,
+        ]);
+    }
+
+    public function admin_scholar_request_process(Request $request)
+    {
+        //return $request->input();
+        Scholar_request::where('id', $request->input('request_id'))
+            ->update(['status' => $request->input('status')]);
+
+        return redirect('admin_scholar_request_list')->with('success','Success');
+    }
 }
+

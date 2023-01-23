@@ -14,11 +14,13 @@
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
     <title>Firm</title>
 
-    {{-- <style>
+    <style>
         body {
-            background-image: url({{ asset('img/dost_background_3.png') }});
+            background-image: url('{{ asset('img/dost_welcome.png') }}');
+            background-repeat: no-repeat;
+            background-size: auto;
         }
-    </style> --}}
+    </style>
 </head>
 
 <body>
@@ -27,72 +29,62 @@
         <br /><br />
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <center>
-                                    <h5>DOST SCHOLAR MANAGEMENT SYSTEM</h5>
-                                </center>
-                            </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <h3 style="text-align: center;">Department of Science and Technology </h3>
+                @if ($errors->any())
+                    <div class="alert alert-danger border-left-danger" role="alert">
+                        <ul class="pl-4 my-2">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger border-left-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                <form method="POST" action="{{ route('login_process') }}" class="user">
+                    @csrf
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                    <label for="">Email</label>
+                    <div class="input-group mb-1">
+                        <input id="email" type="email"
+                            class="form-control rounded-0 @error('email') is-invalid @enderror" name="email"
+                            value="{{ old('email') }}" required autocomplete="email" autofocus aria-label="Username"
+                            aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2" style="background-color:transparent;"><i
+                                    class="bi bi-person-check-fill"></i></span>
                         </div>
                     </div>
-                    <div class="card-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger border-left-danger" role="alert">
-                                <ul class="pl-4 my-2">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
 
-                        @if (session('error'))
-                            <div class="alert alert-danger border-left-danger" role="alert">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-                        <form method="POST" action="{{ route('login_process') }}" class="user">
-                            @csrf
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                            <label for="">Email</label>
-                            <div class="input-group mb-1">
-                                <input id="email" type="email"
-                                    class="form-control rounded-0 @error('email') is-invalid @enderror" name="email"
-                                    value="{{ old('email') }}" required autocomplete="email" autofocus
-                                    aria-label="Username" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2"
-                                        style="background-color:transparent;"><i
-                                            class="bi bi-person-check-fill"></i></span>
-                                </div>
-                            </div>
-
-                            <label>Password</label>
-                            <div class="input-group mb-3">
-                                <input id="password" type="password" required
-                                    class="form-control rounded-0 @error('password') is-invalid @enderror"
-                                    name="password" autocomplete="new-password">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" style="background-color: transparent"
-                                        onclick="password_show_hide();">
-                                        <i class="fas fa-eye" id="show_eye"></i>
-                                        <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary rounded-0 btn-block">
-                                    {{ __('Login') }}
-                                </button>
-                            </div>
-                        </form>
-                        <hr>
+                    <label>Password</label>
+                    <div class="input-group mb-3">
+                        <input id="password" type="password" required
+                            class="form-control rounded-0 @error('password') is-invalid @enderror" name="password"
+                            autocomplete="new-password">
+                        <div class="input-group-append">
+                            <span class="input-group-text" style="background-color: transparent"
+                                onclick="password_show_hide();">
+                                <i class="fas fa-eye" id="show_eye"></i>
+                                <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                            </span>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary rounded-0 btn-block">
+                            {{ __('Login') }}
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
