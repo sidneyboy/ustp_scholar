@@ -77,7 +77,10 @@ Route::get('/scholar_upload_coe/{id}', 'HomeController@scholar_upload_coe')->nam
 Route::post('/scholar_upload_coe_process/', 'HomeController@scholar_upload_coe_process')->name('scholar_upload_coe_process');
 
 Route::get('/coordinator_scholar_coe/{id}', 'HomeController@coordinator_scholar_coe')->name('coordinator_scholar_coe');
-Route::get('/coordinator_scholar_coe_process/{id}/{attachment_id}', 'HomeController@coordinator_scholar_coe_process')->name('coordinator_scholar_coe_process');
+Route::get('/coordinator_scholar_coe_process/{id}/{attachment_id}/{scholar_id}', 'HomeController@coordinator_scholar_coe_process')->name('coordinator_scholar_coe_process');
+
+Route::get('/coordinator_scholar_specific_list/{id}/{scholar_id}', 'HomeController@coordinator_scholar_specific_list')->name('coordinator_scholar_specific_list');
+
 
 Route::get('/admin_scholar_request_list/', 'HomeController@admin_scholar_request_list')->name('admin_scholar_request_list');
 

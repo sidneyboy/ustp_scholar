@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button style="margin-bottom:10px;" class="btn btn-sm float-right btn-success">Save</button>
+                        <button style="margin-bottom:10px;" class="btn btn-sm float-right btn-success">Upload</button>
                     </div>
                 </form>
             </div>

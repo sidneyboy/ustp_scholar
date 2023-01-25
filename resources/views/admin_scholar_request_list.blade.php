@@ -86,6 +86,8 @@
 
                                                                     <input type="hidden" value="{{ $data->id }}"
                                                                         name="request_id">
+
+                                                                    <input type="hidden" value="{{ $data->scholar->id }}" name="scholar_id">
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-sm btn-secondary"

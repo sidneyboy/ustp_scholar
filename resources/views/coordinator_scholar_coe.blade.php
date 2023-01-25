@@ -47,6 +47,7 @@
                                             <td><a href="{{ url('coordinator_scholar_coe_process',[
                                                   'id' => $coordinator->id,
                                                   'attachment_id' => $attachment->id,
+                                                  'scholar_id' => $attachment->scholar->id,
                                             ]) }}" class="btn btn-sm btn-block btn-success">Validate</a></td>
                                             <td><a href="{{ asset('/storage/' . $attachment->attachment) }}"
                                                     target="_blank">View

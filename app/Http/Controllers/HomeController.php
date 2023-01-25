@@ -12,7 +12,10 @@ use App\Models\Incident_report;
 use App\Models\Academmic_year;
 use App\Models\School;
 use App\Models\Grade_details;
+use App\Models\Notification;
+use App\Mail\Send_email;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -274,6 +277,27 @@ class HomeController extends Controller
             $new->save();
         }
 
+
+        $coordinator = Coordinator::select('email')->get();
+        $academ = Academmic_year::find($request->input('academic_year_id'));
+        foreach ($coordinator as $key => $data) {
+            $scholar = Scholar::find($request->input('id'));
+
+            $subject = 'DOST NOTIFICATION';
+            $messages = 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted his/her grades for academic year ' . $academ->school_year . " " . $request->input('semester');
+            Mail::to($data->email)->send(new Send_email($subject, $messages));
+
+            // $new_notification = new Notification([
+            //     'user_id' => $request->input('id'),
+            //     'user_type' => 'student',
+            //     'notification_name' => 'Grades',
+            //     'notification_details' => ,
+            //     'status',
+            // ]);
+        }
+
+       
+
         return 'saved';
     }
 
@@ -297,12 +321,13 @@ class HomeController extends Controller
 
         $new->save();
 
+
         return redirect()->route('scholar_submission', ['id' => $request->input('id')])->with('success', 'Successfully Uploaded. Please wait for email notification');
     }
     public function scholar_subject($id)
     {
         $coordinator = Coordinator::find($id);
-        $grade_details = Grade_details::where('status', 'Pending')->get();
+        $grade_details = Grade_details::where('status', 'Pending')->orderBy('id', 'desc')->get();
 
         return view('scholar_subject', [
             'coordinator' => $coordinator,
@@ -391,6 +416,16 @@ class HomeController extends Controller
 
         $new->save();
 
+        $coordinator = Coordinator::select('email')->get();
+        $academ = Academmic_year::find($request->input('academic_year_id'));
+        foreach ($coordinator as $key => $data) {
+            $scholar = Scholar::find($request->input('scholar_id'));
+
+            $subject = 'DOST NOTIFICATION';
+            $messages = 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted a new request';
+            Mail::to($data->email)->send(new Send_email($subject, $messages));
+        }
+
         return redirect()->route('scholar_request', [
             'id' => $request->input('scholar_id'),
         ])->with('success', 'Request Successfull');
@@ -465,6 +500,7 @@ class HomeController extends Controller
 
     public function coordinator_final_edit_of_grades(Request $request)
     {
+        //return $request->input();
         Grade_details::where('id', $request->input('grade_details_id'))
             ->update([
                 'status' => 'Validated',
@@ -492,9 +528,17 @@ class HomeController extends Controller
                 ]);
         }
 
-        return redirect()->route('scholar_subject', [
+
+        $scholar = Scholar::find($request->input('scholar_id'));
+
+        $subject = 'DOST NOTIFICATION';
+        $messages = 'Good day. We would like to inform you that your grades has been validated by our coordinators. Thank you';
+        Mail::to($scholar->email)->send(new Send_email($subject, $messages));
+
+
+        return redirect()->route('coordinator_scholar_specific_list', [
             'id' => $request->input('coordinator_id'),
-            'grade_id' => $request->input('grade_details_id'),
+            'scholar_id' => $request->input('scholar_id'),
         ])->with('success', 'Work successfully saved');
     }
 
@@ -514,9 +558,17 @@ class HomeController extends Controller
 
         $new->save();
 
-        return redirect()->route('scholar_subject_view', [
+
+        $scholar = Scholar::find($request->input('scholar_id'));
+
+        $subject = 'DOST NOTIFICATION';
+        $messages = 'Good day. We would like to inform you that an incident report was filed to you. please check on our website to check the details of the said report.';
+        Mail::to($scholar->email)->send(new Send_email($subject, $messages));
+
+
+        return redirect()->route('coordinator_scholar_specific_list', [
             'id' => $request->input('coordinator_id'),
-            'grade_id' => $request->input('grade_details_id'),
+            'scholar_id' => $request->input('scholar_id'),
         ])->with('success', 'Work successfully saved');
     }
 
@@ -526,6 +578,14 @@ class HomeController extends Controller
 
         Scholar::where('id', $request->input('scholar_id'))
             ->update(['status' => $request->input('status')]);
+
+
+        $scholar = Scholar::select('email', 'first_name', 'last_name')->find($request->input('scholar_id'));
+
+        $subject = 'DOST NOTIFICATION';
+        $messages = 'Good day, we would like to inform you that DOST coordinator has changed your scholarship status into ' . $request->input('status');
+        Mail::to($scholar->email)->send(new Send_email($subject, $messages));
+
 
         return redirect()->route('coordinator_scholar_list', [
             'id' => $request->input('coordinator_id'),
@@ -601,6 +661,15 @@ class HomeController extends Controller
 
         $new->save();
 
+        $coordinator = Coordinator::select('email')->get();
+        foreach ($coordinator as $key => $data) {
+            $scholar = Scholar::find($request->input('id'));
+
+            $subject = 'DOST NOTIFICATION';
+            $messages = 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has uploaded his/her cetificate of enrollment';
+            Mail::to($data->email)->send(new Send_email($subject, $messages));
+        }
+
         return redirect()->route('scholar_upload_coe', [
             'id' => $request->input('id'),
         ])->with('success', 'Work successfully saved');
@@ -624,14 +693,26 @@ class HomeController extends Controller
         ]);
     }
 
-    public function coordinator_scholar_coe_process($id, $attachment_id)
+    public function coordinator_scholar_coe_process($id, $attachment_id, $scholar_id)
     {
         Attachments::where('id', $attachment_id)
             ->update(['status' => 'Validated']);
 
-        return redirect()->route('coordinator_scholar_coe', [
+        $scholar = Scholar::find($scholar_id);
+
+        $subject = 'DOST NOTIFICATION';
+        $messages = 'Good day. We are happy to inform you that your certificate of enrollment has been validated by our coordinators. Thank you.';
+        Mail::to($scholar->email)->send(new Send_email($subject, $messages));
+
+
+        // return redirect()->route('coordinator_scholar_coe', [
+        //     'id' => $id,
+        // ])->with('success', 'Work successfully saved');
+
+        return redirect()->route('coordinator_scholar_specific_list', [
             'id' => $id,
-        ])->with('success', 'Work successfully saved');
+            'scholar_id' > $scholar_id,
+        ])->with('success', 'Success');
     }
 
     public function admin_scholar_request_list()
@@ -643,7 +724,7 @@ class HomeController extends Controller
             //...
         ];
 
-        $scholar_request = Scholar_request::orderBy('id','desc')->get();
+        $scholar_request = Scholar_request::orderBy('id', 'desc')->get();
 
         return view('admin_scholar_request_list', compact('widget'), [
             'scholar_request' => $scholar_request,
@@ -656,7 +737,25 @@ class HomeController extends Controller
         Scholar_request::where('id', $request->input('request_id'))
             ->update(['status' => $request->input('status')]);
 
-        return redirect('admin_scholar_request_list')->with('success','Success');
+
+        $scholar = Scholar::find($request->input('scholar_id'));
+
+        $subject = 'DOST NOTIFICATION';
+        $messages = 'We are happy to tell you that your request has been ' . $request->input('status') . ' by our coordinators. Thank you.';
+        Mail::to($scholar->email)->send(new Send_email($subject, $messages));
+
+
+        return redirect('admin_scholar_request_list')->with('success', 'Success');
+    }
+
+    public function coordinator_scholar_specific_list($id, $scholar_id)
+    {
+
+        $coordinator = Coordinator::find($id);
+        $scholar = Scholar::where('id', $scholar_id)->get();
+        return view('coordinator_scholar_specific_list', [
+            'coordinator' => $coordinator,
+            'scholar' => $scholar
+        ])->with('id', $id);
     }
 }
-
