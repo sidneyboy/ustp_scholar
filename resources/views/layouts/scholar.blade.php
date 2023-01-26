@@ -71,7 +71,19 @@
             <li class="nav-item {{ Nav::isRoute('scholar_upload_coe') }}">
                 <a class="nav-link" href="{{ route('scholar_upload_coe', ['id' => $scholar->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Upload COE (+)') }}</span></a>
+                    <span>{{ __('Upload COR (+)') }}</span></a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('scholar_submitted_grades') }}">
+                <a class="nav-link" href="{{ route('scholar_submitted_grades', ['id' => $scholar->id]) }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('Submitted Grades') }}</span></a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('scholar_submitted_cor') }}">
+                <a class="nav-link" href="{{ route('scholar_submitted_cor', ['id' => $scholar->id]) }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('Submitted COR') }}</span></a>
             </li>
 
             <li class="nav-item {{ Nav::isRoute('scholar_incident_report_page') }}">

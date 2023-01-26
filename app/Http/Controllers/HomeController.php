@@ -296,7 +296,7 @@ class HomeController extends Controller
             // ]);
         }
 
-       
+
 
         return 'saved';
     }
@@ -756,6 +756,41 @@ class HomeController extends Controller
         return view('coordinator_scholar_specific_list', [
             'coordinator' => $coordinator,
             'scholar' => $scholar
+        ])->with('id', $id);
+    }
+
+    public function scholar_submitted_grades($id)
+    {
+
+        $scholar = Scholar::find($id);
+        $grade_details = Grade_details::where('scholar_id', $id)->get();
+        return view('scholar_submitted_grades', [
+            'scholar' => $scholar,
+            'grade_details' => $grade_details
+        ])->with('id', $id);
+    }
+
+    public function scholar_grades_view($id, $grade_id)
+    {
+        $scholar = Scholar::find($id);
+        $grade_details = Grade_details::find($grade_id);
+
+        return $grade = Grades::where('grade_details_id', $grade_id)->get();
+
+        return view('scholar_grades_view',[
+            'scholar' => $scholar,
+            'grade_details' => $grade_details,
+            'grade' => $grade,
+        ])->with('id',$id);
+    }
+
+    public function scholar_submitted_cor($id)
+    {
+        $scholar = Scholar::find($id);
+        $grade_details = Grade_details::where('scholar_id', $id)->get();
+        return view('scholar_submitted_cor', [
+            'scholar' => $scholar,
+            'grade_details' => $grade_details
         ])->with('id', $id);
     }
 }

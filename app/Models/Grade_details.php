@@ -33,8 +33,6 @@ class Grade_details extends Model
         return $this->belongsTo('App\Models\Academmic_year', 'academic_year_id');
     }
 
-  
-
     public function attachment()
     {
         return $this->hasOne('App\Models\Attachments', 'grade_details_id');

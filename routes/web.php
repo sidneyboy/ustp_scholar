@@ -82,6 +82,14 @@ Route::get('/coordinator_scholar_coe_process/{id}/{attachment_id}/{scholar_id}',
 Route::get('/coordinator_scholar_specific_list/{id}/{scholar_id}', 'HomeController@coordinator_scholar_specific_list')->name('coordinator_scholar_specific_list');
 
 
+Route::get('/scholar_submitted_grades/{id}/', 'HomeController@scholar_submitted_grades')->name('scholar_submitted_grades');
+
+Route::get('/scholar_grades_view/{id}/{grade_id}', 'HomeController@scholar_grades_view')->name('scholar_grades_view');
+
+Route::get('/scholar_submitted_cor/{id}/', 'HomeController@scholar_submitted_cor')->name('scholar_submitted_cor');
+
+
+
 Route::get('/admin_scholar_request_list/', 'HomeController@admin_scholar_request_list')->name('admin_scholar_request_list');
 
 Route::post('/admin_scholar_request_process/', 'HomeController@admin_scholar_request_process')->name('admin_scholar_request_process');
