@@ -102,7 +102,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="">Original Image:</label><br />
-                                  
+
                                 <img src="{{ asset('/storage/' . $grade_details->attachment->attachment) }}"
                                     alt="">
 
@@ -163,8 +163,10 @@
                         <input type="hidden" name="coordinator_id" value="{{ $coordinator->id }}">
                         <input type="hidden" name="grade_details_id" value="{{ $grade_id }}">
                         <input type="hidden" name="scholar_id" value="{{ $grade_details->scholar_id }}">
-                        <button class="btn btn-sm float-right btn-success" style="margin-bottom: 10px;"
-                            type="submit">Validate</button>
+                        @if ($grade_details->status == 'Pending')
+                            <button class="btn btn-sm float-right btn-success" style="margin-bottom: 10px;"
+                                type="submit">Validate</button>
+                        @endif
 
                     </div>
                 </form>

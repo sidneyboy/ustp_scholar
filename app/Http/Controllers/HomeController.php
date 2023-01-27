@@ -94,7 +94,11 @@ class HomeController extends Controller
             //...
         ];
 
-        return view('coordinator', compact('widget'));
+        $notification = Notification::where('notify_to', Auth()->user()->id)->where('user_type', 'admin')->where('status', 'Pending')->get();
+
+        return view('coordinator', compact('widget'), [
+            'notification' => $notification
+        ]);
     }
 
     public function coordinator_process(Request $request)
@@ -139,8 +143,11 @@ class HomeController extends Controller
 
         $scholar = Scholar::orderBy('id', 'desc')->get();
 
+        $notification = Notification::where('notify_to', Auth()->user()->id)->where('user_type', 'admin')->where('status', 'Pending')->get();
+
         return view('scholar_page', compact('widget'), [
             'scholar' => $scholar,
+            'notification' => $notification,
         ]);
     }
 
@@ -153,7 +160,11 @@ class HomeController extends Controller
             //...
         ];
 
-        return view('scholar', compact('widget'));
+        $notification = Notification::where('notify_to', Auth()->user()->id)->where('user_type', 'admin')->where('status', 'Pending')->get();
+
+        return view('scholar', compact('widget'), [
+            'notification' => $notification,
+        ]);
     }
 
     public function scholar_process(Request $request)
@@ -218,11 +229,13 @@ class HomeController extends Controller
         $grades = Grades::where('scholar_id', $id)->get();
         $school = School::get();
         $academic_year = Academmic_year::get();
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'student')->where('status', 'Pending')->get();
         return view('scholar_submission', [
             'scholar' => $scholar,
             'grades' => $grades,
             'school' => $school,
             'academic_year' => $academic_year,
+            'notification' => $notification,
         ])->with('id', $id);
     }
 
@@ -277,8 +290,7 @@ class HomeController extends Controller
             $new->save();
         }
 
-
-        $coordinator = Coordinator::select('email')->get();
+        $coordinator = Coordinator::select('id', 'email')->get();
         $academ = Academmic_year::find($request->input('academic_year_id'));
         foreach ($coordinator as $key => $data) {
             $scholar = Scholar::find($request->input('id'));
@@ -287,16 +299,17 @@ class HomeController extends Controller
             $messages = 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted his/her grades for academic year ' . $academ->school_year . " " . $request->input('semester');
             Mail::to($data->email)->send(new Send_email($subject, $messages));
 
-            // $new_notification = new Notification([
-            //     'user_id' => $request->input('id'),
-            //     'user_type' => 'student',
-            //     'notification_name' => 'Grades',
-            //     'notification_details' => ,
-            //     'status',
-            // ]);
+            $new_notification = new Notification([
+                'user_id' => $request->input('id'),
+                'notify_to' => $data->id,
+                'user_type' => 'student',
+                'notification_name' => 'Grades',
+                'notification_details' => 'Scholar ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted his/her grades',
+                'status' => 'Pending',
+            ]);
+
+            $new_notification->save();
         }
-
-
 
         return 'saved';
     }
@@ -329,9 +342,12 @@ class HomeController extends Controller
         $coordinator = Coordinator::find($id);
         $grade_details = Grade_details::where('status', 'Pending')->orderBy('id', 'desc')->get();
 
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'coordinator')->where('status', 'Pending')->get();
+
         return view('scholar_subject', [
             'coordinator' => $coordinator,
             'grade_details' => $grade_details,
+            'notification' => $notification,
         ])->with('id', $id);
     }
 
@@ -386,17 +402,21 @@ class HomeController extends Controller
 
         $scholar = Scholar::find($id);
         $request = Scholar_request::where('scholar_id', $id)->get();
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'student')->where('status', 'Pending')->get();
         return view('scholar_request_page', [
             'scholar' => $scholar,
             'request' => $request,
+            'notification' => $notification,
         ])->with('id', $id);
     }
 
     public function scholar_request($id)
     {
         $scholar = Scholar::find($id);
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'student')->where('status', 'Pending')->get();
         return view('scholar_request', [
             'scholar' => $scholar,
+            'notification' => $notification,
         ])->with('id', $id);
     }
 
@@ -416,14 +436,25 @@ class HomeController extends Controller
 
         $new->save();
 
-        $coordinator = Coordinator::select('email')->get();
+        $admin = User::select('id', 'email')->get();
         $academ = Academmic_year::find($request->input('academic_year_id'));
-        foreach ($coordinator as $key => $data) {
+        foreach ($admin as $key => $data) {
             $scholar = Scholar::find($request->input('scholar_id'));
 
             $subject = 'DOST NOTIFICATION';
             $messages = 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted a new request';
             Mail::to($data->email)->send(new Send_email($subject, $messages));
+
+            $new_notification = new Notification([
+                'user_id' => $request->input('scholar_id'),
+                'notify_to' => $data->id,
+                'user_type' => 'admin',
+                'notification_name' => 'Grades',
+                'notification_details' => 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted a new request',
+                'status' => 'Pending',
+            ]);
+
+            $new_notification->save();
         }
 
         return redirect()->route('scholar_request', [
@@ -435,8 +466,11 @@ class HomeController extends Controller
     {
         $coordinator = Coordinator::find($id);
         $scholar = Scholar::get();
+
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'coordinator')->where('status', 'Pending')->get();
         return view('coordinator_scholar_list', [
             'coordinator' => $coordinator,
+            'notification' => $notification,
             'scholar' => $scholar
         ])->with('id', $id);
     }
@@ -445,9 +479,11 @@ class HomeController extends Controller
     {
         $coordinator = Coordinator::find($id);
         $scholar_request = Scholar_request::get();
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'coordinator')->where('status', 'Pending')->get();
         return view('coordinator_scholar_request', [
             'coordinator' => $coordinator,
-            'scholar_request' => $scholar_request
+            'scholar_request' => $scholar_request,
+            'notification' => $notification
         ])->with('id', $id);
     }
 
@@ -456,10 +492,12 @@ class HomeController extends Controller
         $coordinator = Coordinator::find($id);
         $scholar = Scholar::get();
         $incident_report = Incident_report::orderBy('id', 'desc')->get();
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'coordinator')->where('status', 'Pending')->get();
         return view('coordinator_scholar_incident_report', [
             'coordinator' => $coordinator,
             'scholar' => $scholar,
-            'incident_report' => $incident_report
+            'incident_report' => $incident_report,
+            'notification' => $notification
         ])->with('id', $id);
     }
 
@@ -490,8 +528,11 @@ class HomeController extends Controller
 
         $grades = Grades::where('grade_details_id', $grade_id)->get();
 
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'coordinator')->where('status', 'Pending')->get();
+
         return view('scholar_subject_view', [
             'grade_details' => $grade_details,
+            'notification' => $notification,
             'coordinator' => $coordinator,
             'grades' => $grades,
             'grade_id' => $grade_id,
@@ -535,6 +576,18 @@ class HomeController extends Controller
         $messages = 'Good day. We would like to inform you that your grades has been validated by our coordinators. Thank you';
         Mail::to($scholar->email)->send(new Send_email($subject, $messages));
 
+        $new_notification = new Notification([
+            'user_id' => $request->input('coordinator_id'),
+            'notify_to' => $request->input('scholar_id'),
+            'user_type' => 'student',
+            'notification_name' => 'Grades',
+            'notification_details' => 'Good day. We would like to inform you that your grades has been validated by our coordinators. Thank you',
+            'status' => 'Pending',
+        ]);
+
+        $new_notification->save();
+
+
 
         return redirect()->route('coordinator_scholar_specific_list', [
             'id' => $request->input('coordinator_id'),
@@ -544,6 +597,7 @@ class HomeController extends Controller
 
     public function coordinator_incident_report_process(Request $request)
     {
+        //return $request->input();
         date_default_timezone_set('Asia/Manila');
         $date = date('Y-m-d');
 
@@ -552,11 +606,15 @@ class HomeController extends Controller
             'scholar_id' => $request->input('scholar_id'),
             'report_type' => $request->input('report_type'),
             'action_taken' => $request->input('action_taken'),
+            'grade_details_id' => $request->input('grade_details_id'),
             'report_date' => $date,
             'remarks' => $request->input('remarks'),
         ]);
 
         $new->save();
+
+        Grade_details::where('id', $request->input('grade_details_id'))
+            ->update(['status' => 'Rejected']);
 
 
         $scholar = Scholar::find($request->input('scholar_id'));
@@ -564,6 +622,18 @@ class HomeController extends Controller
         $subject = 'DOST NOTIFICATION';
         $messages = 'Good day. We would like to inform you that an incident report was filed to you. please check on our website to check the details of the said report.';
         Mail::to($scholar->email)->send(new Send_email($subject, $messages));
+
+        $new_notification = new Notification([
+            'user_id' => $request->input('coordinator_id'),
+            'notify_to' => $request->input('scholar_id'),
+            'user_type' => 'student',
+            'notification_name' => 'Incident Report',
+            'notification_details' => 'Good day. We would like to inform you that an incident report was filed to you. please check on our website to check the details of the said report.',
+            'status' => 'Pending',
+        ]);
+
+        $new_notification->save();
+
 
 
         return redirect()->route('coordinator_scholar_specific_list', [
@@ -602,9 +672,11 @@ class HomeController extends Controller
         ];
 
         $incident_report = Incident_report::orderBy('id', 'desc')->get();
+        $notification = Notification::where('notify_to', Auth()->user()->id)->where('user_type', 'admin')->where('status', 'Pending')->get();
 
         return view('admin_incident_report_list', compact('widget'), [
             'incident_report' => $incident_report,
+            'notification' => $notification,
         ]);
     }
 
@@ -620,10 +692,12 @@ class HomeController extends Controller
         $scholar = scholar::find($id);
 
         $incident_report = Incident_report::where('scholar_id', $id)->orderBy('id', 'desc')->get();
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'student')->where('status', 'Pending')->get();
 
         return view('scholar_incident_report_page', compact('widget'), [
             'incident_report' => $incident_report,
             'scholar' => $scholar,
+            'notification' => $notification,
         ]);
     }
 
@@ -637,9 +711,11 @@ class HomeController extends Controller
         ];
 
         $scholar = scholar::find($id);
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'student')->where('status', 'Pending')->get();
 
         return view('scholar_upload_coe', compact('widget'), [
             'scholar' => $scholar,
+            'notification' => $notification,
         ]);
     }
 
@@ -661,13 +737,24 @@ class HomeController extends Controller
 
         $new->save();
 
-        $coordinator = Coordinator::select('email')->get();
+        $coordinator = Coordinator::select('id', 'email')->get();
         foreach ($coordinator as $key => $data) {
             $scholar = Scholar::find($request->input('id'));
 
             $subject = 'DOST NOTIFICATION';
             $messages = 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has uploaded his/her cetificate of enrollment';
             Mail::to($data->email)->send(new Send_email($subject, $messages));
+
+            $new_notification = new Notification([
+                'user_id' => $request->input('id'),
+                'notify_to' => $data->id,
+                'user_type' => 'student',
+                'notification_name' => 'Grades',
+                'notification_details' => 'Scholar ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted his/her COR',
+                'status' => 'Pending',
+            ]);
+
+            $new_notification->save();
         }
 
         return redirect()->route('scholar_upload_coe', [
@@ -687,8 +774,11 @@ class HomeController extends Controller
         $attachments = Attachments::where('status', 'Pending')->orderBy('id', 'desc')->get();
         $coordinator = Coordinator::find($id);
 
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'coordinator')->where('status', 'Pending')->get();
+
         return view('coordinator_scholar_coe', compact('widget'), [
             'attachments' => $attachments,
+            'notification' => $notification,
             'coordinator' => $coordinator,
         ]);
     }
@@ -704,10 +794,16 @@ class HomeController extends Controller
         $messages = 'Good day. We are happy to inform you that your certificate of enrollment has been validated by our coordinators. Thank you.';
         Mail::to($scholar->email)->send(new Send_email($subject, $messages));
 
+        $new_notification = new Notification([
+            'user_id' => $id,
+            'notify_to' => $scholar_id,
+            'user_type' => 'student',
+            'notification_name' => 'Grades',
+            'notification_details' => 'Good day. We are happy to inform you that your certificate of enrollment has been validated by our coordinators. Thank you.',
+            'status' => 'Pending',
+        ]);
 
-        // return redirect()->route('coordinator_scholar_coe', [
-        //     'id' => $id,
-        // ])->with('success', 'Work successfully saved');
+        $new_notification->save();
 
         return redirect()->route('coordinator_scholar_specific_list', [
             'id' => $id,
@@ -726,8 +822,11 @@ class HomeController extends Controller
 
         $scholar_request = Scholar_request::orderBy('id', 'desc')->get();
 
+        $notification = Notification::where('notify_to', Auth()->user()->id)->where('user_type', 'admin')->where('status', 'Pending')->get();
+
         return view('admin_scholar_request_list', compact('widget'), [
             'scholar_request' => $scholar_request,
+            'notification' => $notification,
         ]);
     }
 
@@ -744,6 +843,17 @@ class HomeController extends Controller
         $messages = 'We are happy to tell you that your request has been ' . $request->input('status') . ' by our coordinators. Thank you.';
         Mail::to($scholar->email)->send(new Send_email($subject, $messages));
 
+        $new_notification = new Notification([
+            'user_id' => Auth()->user()->id,
+            'notify_to' => $request->input('scholar_id'),
+            'user_type' => 'student',
+            'notification_name' => 'Grades',
+            'notification_details' => 'We are happy to tell you that your request has been ' . $request->input('status') . ' by our coordinators. Thank you.',
+            'status' => 'Pending',
+        ]);
+
+        $new_notification->save();
+
 
         return redirect('admin_scholar_request_list')->with('success', 'Success');
     }
@@ -753,8 +863,10 @@ class HomeController extends Controller
 
         $coordinator = Coordinator::find($id);
         $scholar = Scholar::where('id', $scholar_id)->get();
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'coordinator')->where('status', 'Pending')->get();
         return view('coordinator_scholar_specific_list', [
             'coordinator' => $coordinator,
+            'notification' => $notification,
             'scholar' => $scholar
         ])->with('id', $id);
     }
@@ -763,10 +875,13 @@ class HomeController extends Controller
     {
 
         $scholar = Scholar::find($id);
-        $grade_details = Grade_details::where('scholar_id', $id)->get();
+        $grade_details = Grade_details::where('scholar_id', $id)->orderBy('id', 'desc')->get();
+
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'student')->where('status', 'Pending')->get();
         return view('scholar_submitted_grades', [
             'scholar' => $scholar,
-            'grade_details' => $grade_details
+            'grade_details' => $grade_details,
+            'notification' => $notification
         ])->with('id', $id);
     }
 
@@ -775,22 +890,73 @@ class HomeController extends Controller
         $scholar = Scholar::find($id);
         $grade_details = Grade_details::find($grade_id);
 
-        return $grade = Grades::where('grade_details_id', $grade_id)->get();
+        $grade = Grades::where('grade_details_id', $grade_id)->get();
 
-        return view('scholar_grades_view',[
+        return view('scholar_grades_view', [
             'scholar' => $scholar,
             'grade_details' => $grade_details,
             'grade' => $grade,
-        ])->with('id',$id);
+        ])->with('id', $id);
     }
 
     public function scholar_submitted_cor($id)
     {
         $scholar = Scholar::find($id);
         $grade_details = Grade_details::where('scholar_id', $id)->get();
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'student')->where('status', 'Pending')->get();
         return view('scholar_submitted_cor', [
             'scholar' => $scholar,
-            'grade_details' => $grade_details
+            'grade_details' => $grade_details,
+            'notification' => $notification
         ])->with('id', $id);
+    }
+
+    public function notification_process(Request $request)
+    {
+        $explode = explode(',', $request->input('notification_id'));
+
+        for ($i = 0; $i < count($explode); $i++) {
+            Notification::where('id', $explode[$i])
+                ->update(['status' => 'completed']);
+        }
+    }
+
+    public function proceed_notify_student(Request $request)
+    {
+        $scholar = Scholar::whereIn('id', $request->input('scholar_id'))->get();
+
+        return view('proceed_notify_student', [
+            'scholar' => $scholar,
+        ]);
+    }
+
+    public function notify_student_process(Request $request)
+    {
+        // return $request->input();
+
+        foreach ($request->input('scholar_id') as $key => $data) {
+
+            Scholar::where('id', $data)
+                ->update(['status' => 'On Hold']);
+
+            $scholar = Scholar::select('email')->find($data);
+
+            $new_notification = new Notification([
+                'user_id' => Auth()->user()->id,
+                'notify_to' => $data,
+                'user_type' => 'student',
+                'notification_name' => 'Grades',
+                'notification_details' => $request->input('message'),
+                'status' => 'Pending',
+            ]);
+
+            $new_notification->save();
+
+            $subject = 'DOST NOTIFICATION';
+            $messages = $request->input('message');
+            Mail::to($scholar->email)->send(new Send_email($subject, $messages));
+        }
+
+        return redirect('scholar_page')->with('success', 'Notification successfully sent to students.');
     }
 }

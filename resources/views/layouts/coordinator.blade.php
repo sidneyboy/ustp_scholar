@@ -66,7 +66,7 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Scholar List') }}</span></a>
             </li>
-            
+
 
             <li class="nav-item {{ Nav::isRoute('scholar_subject') }}">
                 <a class="nav-link" href="{{ route('scholar_subject', ['id' => $coordinator->id]) }}">
@@ -146,32 +146,35 @@
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        {{-- <li class="nav-item dropdown no-arrow mx-1">
+                        <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                <span class="badge badge-danger badge-counter">{{ count($notification) }}</span>
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Alerts Center
+                                    Notifications
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
+                                @foreach ($notification as $data)
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="mr-3">
+                                            <div class="icon-circle bg-primary">
+                                                <i class="fas fa-file-alt text-white"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to
-                                            download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div>
+                                            <div class="small text-gray-500">
+                                                {{ date('F j, Y', strtotime($data->created_at)) }}</div>
+                                            <input type="hidden" value="{{ $data->id }}" name="notification_id[]">
+                                            <span class="font-weight-bold">{{ $data->notification_details }}</span>
+                                        </div>
+                                    </a>
+                                @endforeach
+                                {{-- <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-success">
                                             <i class="fas fa-donate text-white"></i>
@@ -194,9 +197,9 @@
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All
-                                    Alerts</a>
+                                    Alerts</a> --}}
                             </div>
-                        </li> --}}
+                        </li>
 
                         <!-- Nav Item - Messages -->
                         {{-- <li class="nav-item dropdown no-arrow mx-1">
@@ -369,8 +372,36 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+
         $(document).ready(function() {
             $('#table').DataTable();
+        });
+
+
+
+        $("#alertsDropdown").click(function() {
+            var notification_id = [];
+            $("input[name='notification_id[]']").each(function() {
+                notification_id.push($(this).val());
+            });
+
+            $.post({
+                type: "POST",
+                url: "/notification_process",
+                data: 'notification_id=' + notification_id,
+                success: function(data) {
+
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
         });
     </script>
 </body>

@@ -10,6 +10,7 @@ class Incident_report extends Model
     use HasFactory;
 
     protected $fillable = [
+        'grade_details_id',
         'coordinator_id',
         'scholar_id',
         'report_type',
