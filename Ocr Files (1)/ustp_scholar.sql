@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2023 at 12:59 PM
+-- Generation Time: Jan 28, 2023 at 05:29 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -39,7 +39,8 @@ CREATE TABLE `academmic_years` (
 --
 
 INSERT INTO `academmic_years` (`id`, `school_year`, `created_at`, `updated_at`) VALUES
-(1, '2023', NULL, NULL);
+(1, '2023', NULL, NULL),
+(2, '2025', '2023-01-27 16:07:14', '2023-01-27 16:07:14');
 
 -- --------------------------------------------------------
 
@@ -70,7 +71,10 @@ INSERT INTO `attachments` (`id`, `scholar_id`, `attachment`, `status`, `created_
 (16, 1, '1674647157.png', 'Validated', '2023-01-25 03:45:57', '2023-01-25 03:58:03', 21, NULL),
 (17, 1, '1674647311.png', 'Validated', '2023-01-25 03:48:31', '2023-01-25 03:51:02', NULL, 'coe'),
 (18, 1, '1674731635.png', 'Validated', '2023-01-26 03:13:55', '2023-01-26 03:17:13', 22, NULL),
-(19, 1, '1674731693.png', 'Validated', '2023-01-26 03:14:53', '2023-01-26 03:18:09', NULL, 'coe');
+(19, 1, '1674731693.png', 'Validated', '2023-01-26 03:14:53', '2023-01-26 03:18:09', NULL, 'coe'),
+(20, 1, '1674822767.png', 'Pending', '2023-01-27 04:32:47', '2023-01-27 04:32:47', 27, NULL),
+(21, 1, '1674823067.png', 'Validated', '2023-01-27 04:37:47', '2023-01-27 05:08:34', NULL, 'coe'),
+(22, 1, '1674879906.png', 'Pending', '2023-01-27 20:25:06', '2023-01-27 20:25:06', 28, NULL);
 
 -- --------------------------------------------------------
 
@@ -213,7 +217,55 @@ INSERT INTO `grades` (`id`, `scholar_id`, `subject_code`, `subject_name`, `subje
 (175, 1, 'CD Math101', 'DP Mathematics in Modern World', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-26 11:13:48', '2023-01-26 03:17:13', 'MDT A.75', 'FNL 2.25', 'SCITIR2', 'NONE', 22),
 (176, 1, 'CDPE101d', 'DP Physical Activty Towards Health and', 'UN-3', NULL, NULL, NULL, NULL, NULL, '2023-01-26 11:13:49', '2023-01-26 03:17:13', 'MDT 1.00', 'FNLA.75', 'SCATIR2', 'NONE', 22),
 (177, 1, 'CDaTI1', '\'DPntroduction to Computing', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-26 11:13:49', '2023-01-26 03:17:13', 'MDT 2.00', 'FNLA.75', 'SCITIR2', 'NONE', 22),
-(178, 1, 'RK Passed8CDIT112', 'DP Computer Programing 1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-26 11:13:50', '2023-01-26 03:17:13', 'MDT 250', 'FNL 275', 'SCITIR2', 'NONE', 22);
+(178, 1, 'RK Passed8CDIT112', 'DP Computer Programing 1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-26 11:13:50', '2023-01-26 03:17:13', 'MDT 250', 'FNL 275', 'SCITIR2', 'NONE', 22),
+(179, 1, 'Remarks\n1CD-Eng101', 'DP-Purposive-Communication', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:24:53', '2023-01-27 12:24:53', 'MDT-275', 'FNL-2.50', 'SCITIR2', NULL, 23),
+(180, 1, 'RK-Passed\n2CD-S5103', 'DP-The-Contemporary-World,', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:24:53', '2023-01-27 12:24:53', 'MDT-250', 'FNL-2.25', 'SCITIR2', NULL, 23),
+(181, 1, 'CDNSTP101b', 'DP-Civic-Welfare-Training-Senvice-1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:24:54', '2023-01-27 12:24:54', 'MDTA.75', 'FNLA.75', 'SCITIR2', NULL, 23),
+(182, 1, 'RK-Passed\n4CDSS102', 'DP-Reading-in-Philippine-History', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:24:54', '2023-01-27 12:24:54', 'MDT-250', 'FNL-2.00', 'SCITIR2', NULL, 23),
+(183, 1, 'CD-Math101', 'DP-Mathematics-in-Modern-World', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:24:55', '2023-01-27 12:24:55', 'MDT-A.75', 'FNL-2.25', 'SCITIR2', NULL, 23),
+(184, 1, 'CDPE101d', 'DP-Physical-Activty-Towards-Health-and', 'UN-3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:24:55', '2023-01-27 12:24:55', 'MDT-1.00', 'FNLA.75', 'SCATIR2', NULL, 23),
+(185, 1, 'CDaTI1', '\'DPntroduction-to-Computing', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:24:56', '2023-01-27 12:24:56', 'MDT-2.00', 'FNLA.75', 'SCITIR2', NULL, 23),
+(186, 1, 'RK-Passed\n8CDIT112', 'DP-Computer-Programing-1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:24:56', '2023-01-27 12:24:56', 'MDT-250', 'FNL-275', 'SCITIR2', NULL, 23),
+(187, 1, 'Remarks\n1CD-Eng101', 'DP-Purposive-Communication', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:27:40', '2023-01-27 12:27:40', 'MDT-275', 'FNL-2.50', 'SCITIR2', NULL, 24),
+(188, 1, 'RK-Passed\n2CD-S5103', 'DP-The-Contemporary-World,', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:27:41', '2023-01-27 12:27:41', 'MDT-250', 'FNL-2.25', 'SCITIR2', NULL, 24),
+(189, 1, 'CDNSTP101b', 'DP-Civic-Welfare-Training-Senvice-1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:27:41', '2023-01-27 12:27:41', 'MDTA.75', 'FNLA.75', 'SCITIR2', NULL, 24),
+(190, 1, 'RK-Passed\n4CDSS102', 'DP-Reading-in-Philippine-History', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:27:41', '2023-01-27 12:27:41', 'MDT-250', 'FNL-2.00', 'SCITIR2', NULL, 24),
+(191, 1, 'CD-Math101', 'DP-Mathematics-in-Modern-World', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:27:41', '2023-01-27 12:27:41', 'MDT-A.75', 'FNL-2.25', 'SCITIR2', NULL, 24),
+(192, 1, 'CDPE101d', 'DP-Physical-Activty-Towards-Health-and', 'UN-3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:27:42', '2023-01-27 12:27:42', 'MDT-1.00', 'FNLA.75', 'SCATIR2', NULL, 24),
+(193, 1, 'CDaTI1', '\'DPntroduction-to-Computing', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:27:42', '2023-01-27 12:27:42', 'MDT-2.00', 'FNLA.75', 'SCITIR2', NULL, 24),
+(194, 1, 'RK-Passed\n8CDIT112', 'DP-Computer-Programing-1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:27:42', '2023-01-27 12:27:42', 'MDT-250', 'FNL-275', 'SCITIR2', NULL, 24),
+(195, 1, 'Remarks\n1CD-Eng101', 'DP-Purposive-Communication', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:28:22', '2023-01-27 12:28:22', 'MDT-275', 'FNL-2.50', 'SCITIR2', NULL, 25),
+(196, 1, 'RK-Passed\n2CD-S5103', 'DP-The-Contemporary-World,', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:28:23', '2023-01-27 12:28:23', 'MDT-250', 'FNL-2.25', 'SCITIR2', NULL, 25),
+(197, 1, 'CDNSTP101b', 'DP-Civic-Welfare-Training-Senvice-1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:28:23', '2023-01-27 12:28:23', 'MDTA.75', 'FNLA.75', 'SCITIR2', NULL, 25),
+(198, 1, 'RK-Passed\n4CDSS102', 'DP-Reading-in-Philippine-History', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:28:23', '2023-01-27 12:28:23', 'MDT-250', 'FNL-2.00', 'SCITIR2', NULL, 25),
+(199, 1, 'CD-Math101', 'DP-Mathematics-in-Modern-World', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:28:24', '2023-01-27 12:28:24', 'MDT-A.75', 'FNL-2.25', 'SCITIR2', NULL, 25),
+(200, 1, 'CDPE101d', 'DP-Physical-Activty-Towards-Health-and', 'UN-3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:28:24', '2023-01-27 12:28:24', 'MDT-1.00', 'FNLA.75', 'SCATIR2', NULL, 25),
+(201, 1, 'CDaTI1', '\'DPntroduction-to-Computing', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:28:24', '2023-01-27 12:28:24', 'MDT-2.00', 'FNLA.75', 'SCITIR2', NULL, 25),
+(202, 1, 'RK-Passed\n8CDIT112', 'DP-Computer-Programing-1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:28:24', '2023-01-27 12:28:24', 'MDT-250', 'FNL-275', 'SCITIR2', NULL, 25),
+(203, 1, 'Remarks\n1CD-Eng101', 'DP-Purposive-Communication', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:29:36', '2023-01-27 12:29:36', 'MDT-275', 'FNL-2.50', 'SCITIR2', NULL, 26),
+(204, 1, 'RK-Passed\n2CD-S5103', 'DP-The-Contemporary-World,', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:29:37', '2023-01-27 12:29:37', 'MDT-250', 'FNL-2.25', 'SCITIR2', NULL, 26),
+(205, 1, 'CDNSTP101b', 'DP-Civic-Welfare-Training-Senvice-1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:29:37', '2023-01-27 12:29:37', 'MDTA.75', 'FNLA.75', 'SCITIR2', NULL, 26),
+(206, 1, 'RK-Passed\n4CDSS102', 'DP-Reading-in-Philippine-History', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:29:37', '2023-01-27 12:29:37', 'MDT-250', 'FNL-2.00', 'SCITIR2', NULL, 26),
+(207, 1, 'CD-Math101', 'DP-Mathematics-in-Modern-World', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:29:38', '2023-01-27 12:29:38', 'MDT-A.75', 'FNL-2.25', 'SCITIR2', NULL, 26),
+(208, 1, 'CDPE101d', 'DP-Physical-Activty-Towards-Health-and', 'UN-3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:29:38', '2023-01-27 12:29:38', 'MDT-1.00', 'FNLA.75', 'SCATIR2', NULL, 26),
+(209, 1, 'CDaTI1', '\'DPntroduction-to-Computing', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:29:39', '2023-01-27 12:29:39', 'MDT-2.00', 'FNLA.75', 'SCITIR2', NULL, 26),
+(210, 1, 'RK-Passed\n8CDIT112', 'DP-Computer-Programing-1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:29:39', '2023-01-27 12:29:39', 'MDT-250', 'FNL-275', 'SCITIR2', NULL, 26),
+(211, 1, 'Remarks\n1CD-Eng101', 'DP-Purposive-Communication', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:32:40', '2023-01-27 12:32:40', 'MDT-275', 'FNL-2.50', 'SCITIR2', NULL, 27),
+(212, 1, 'RK-Passed\n2CD-S5103', 'DP-The-Contemporary-World,', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:32:40', '2023-01-27 12:32:40', 'MDT-250', 'FNL-2.25', 'SCITIR2', NULL, 27),
+(213, 1, 'CDNSTP101b', 'DP-Civic-Welfare-Training-Senvice-1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:32:40', '2023-01-27 12:32:40', 'MDTA.75', 'FNLA.75', 'SCITIR2', NULL, 27),
+(214, 1, 'RK-Passed\n4CDSS102', 'DP-Reading-in-Philippine-History', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:32:40', '2023-01-27 12:32:40', 'MDT-250', 'FNL-2.00', 'SCITIR2', NULL, 27),
+(215, 1, 'CD-Math101', 'DP-Mathematics-in-Modern-World', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:32:41', '2023-01-27 12:32:41', 'MDT-A.75', 'FNL-2.25', 'SCITIR2', NULL, 27),
+(216, 1, 'CDPE101d', 'DP-Physical-Activty-Towards-Health-and', 'UN-3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:32:41', '2023-01-27 12:32:41', 'MDT-1.00', 'FNLA.75', 'SCATIR2', NULL, 27),
+(217, 1, 'CDaTI1', '\'DPntroduction-to-Computing', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:32:41', '2023-01-27 12:32:41', 'MDT-2.00', 'FNLA.75', 'SCITIR2', NULL, 27),
+(218, 1, 'RK-Passed\n8CDIT112', 'DP-Computer-Programing-1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-27 12:32:41', '2023-01-27 12:32:41', 'MDT-250', 'FNL-275', 'SCITIR2', NULL, 27),
+(219, 1, 'Remarks\n1CD-Eng101', 'DP-Purposive-Communication', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-28 04:25:00', '2023-01-28 04:25:00', 'MDT-275', 'FNL-2.50', 'SCITIR2', NULL, 28),
+(220, 1, 'RK-Passed\n2CD-S5103', 'DP-The-Contemporary-World,', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-28 04:25:00', '2023-01-28 04:25:00', 'MDT-250', 'FNL-2.25', 'SCITIR2', NULL, 28),
+(221, 1, 'CDNSTP101b', 'DP-Civic-Welfare-Training-Senvice-1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-28 04:25:00', '2023-01-28 04:25:00', 'MDTA.75', 'FNLA.75', 'SCITIR2', NULL, 28),
+(222, 1, 'RK-Passed\n4CDSS102', 'DP-Reading-in-Philippine-History', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-28 04:25:00', '2023-01-28 04:25:00', 'MDT-250', 'FNL-2.00', 'SCITIR2', NULL, 28),
+(223, 1, 'CD-Math101', 'DP-Mathematics-in-Modern-World', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-28 04:25:00', '2023-01-28 04:25:00', 'MDT-A.75', 'FNL-2.25', 'SCITIR2', NULL, 28),
+(224, 1, 'CDPE101d', 'DP-Physical-Activty-Towards-Health-and', 'UN-3', NULL, NULL, NULL, NULL, NULL, '2023-01-28 04:25:00', '2023-01-28 04:25:00', 'MDT-1.00', 'FNLA.75', 'SCATIR2', NULL, 28),
+(225, 1, 'CDaTI1', '\'DPntroduction-to-Computing', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-28 04:25:00', '2023-01-28 04:25:00', 'MDT-2.00', 'FNLA.75', 'SCITIR2', NULL, 28),
+(226, 1, 'RK-Passed\n8CDIT112', 'DP-Computer-Programing-1', 'UN3', NULL, NULL, NULL, NULL, NULL, '2023-01-28 04:25:00', '2023-01-28 04:25:00', 'MDT-250', 'FNL-275', 'SCITIR2', NULL, 28);
 
 -- --------------------------------------------------------
 
@@ -246,7 +298,13 @@ INSERT INTO `grade_details` (`id`, `scholar_id`, `school_id`, `academic_year_id`
 (19, 1, 1, 1, '1st Semester', '2023-01-24 12:58:47', '2023-01-24 12:58:47', '#  Code Descriptive. Units  Section ~Midterm  Final  Re-Exam Remarks\n1CD-Eng101  DP-Purposive-Communication UN3  SCITIR2 MDT-275 FNL-2.50 RK-Passed\n2CD-S5103  DP-The-Contemporary-World, UN3  SCITIR2 MDT-250 FNL-2.25 RK-Passed\n3 CDNSTP101b DP-Civic-Welfare-Training-Senvice-1 UN3  SCITIR2 MDTA.75 FNLA.75 RK-Passed\n4CDSS102  DP-Reading-in-Philippine-History UN3  SCITIR2 MDT-250 FNL-2.00 RK-Passed\n5 CD-Math101  DP-Mathematics-in-Modern-World UN3  SCITIR2 MDT-A.75 FNL-2.25 RK-Passed\n6 CDPE101d  DP-Physical-Activty-Towards-Health-and Fitness-1 ~ UN-3  SCATIR2 MDT-1.00 FNLA.75 RK-Passed\n7 CDaTI1 \'DPntroduction-to-Computing UN3  SCITIR2 MDT-2.00 FNLA.75 RK-Passed\n8CDIT112 DP-Computer-Programing-1 UN3  SCITIR2 MDT-250 FNL-275 RK-Passed', 'Pending'),
 (20, 1, 1, 1, '3rd Semester', '2023-01-24 13:00:17', '2023-01-24 05:18:50', '#  Code Descriptive. Units  Section ~Midterm  Final  Re-Exam Remarks\n1CD-Eng101  DP-Purposive-Communication UN3  SCITIR2 MDT-275 FNL-2.50 RK-Passed\n2CD-S5103  DP-The-Contemporary-World, UN3  SCITIR2 MDT-250 FNL-2.25 RK-Passed\n3 CDNSTP101b DP-Civic-Welfare-Training-Senvice-1 UN3  SCITIR2 MDTA.75 FNLA.75 RK-Passed\n4CDSS102  DP-Reading-in-Philippine-History UN3  SCITIR2 MDT-250 FNL-2.00 RK-Passed\n5 CD-Math101  DP-Mathematics-in-Modern-World UN3  SCITIR2 MDT-A.75 FNL-2.25 RK-Passed\n6 CDPE101d  DP-Physical-Activty-Towards-Health-and Fitness-1 ~ UN-3  SCATIR2 MDT-1.00 FNLA.75 RK-Passed\n7 CDaTI1 \'DPntroduction-to-Computing UN3  SCITIR2 MDT-2.00 FNLA.75 RK-Passed\n8CDIT112 DP-Computer-Programing-1 UN3  SCITIR2 MDT-250 FNL-275 RK-Passed', 'Validated'),
 (21, 1, 1, 1, '1st Semester', '2023-01-25 11:45:52', '2023-01-25 03:58:03', '#  Code Descriptive. Units  Section ~Midterm  Final  Re-Exam Remarks\n1CD-Eng101  DP-Purposive-Communication UN3  SCITIR2 MDT-275 FNL-2.50 RK-Passed\n2CD-S5103  DP-The-Contemporary-World, UN3  SCITIR2 MDT-250 FNL-2.25 RK-Passed\n3 CDNSTP101b DP-Civic-Welfare-Training-Senvice-1 UN3  SCITIR2 MDTA.75 FNLA.75 RK-Passed\n4CDSS102  DP-Reading-in-Philippine-History UN3  SCITIR2 MDT-250 FNL-2.00 RK-Passed\n5 CD-Math101  DP-Mathematics-in-Modern-World UN3  SCITIR2 MDT-A.75 FNL-2.25 RK-Passed\n6 CDPE101d  DP-Physical-Activty-Towards-Health-and Fitness-1 ~ UN-3  SCATIR2 MDT-1.00 FNLA.75 RK-Passed\n7 CDaTI1 \'DPntroduction-to-Computing UN3  SCITIR2 MDT-2.00 FNLA.75 RK-Passed\n8CDIT112 DP-Computer-Programing-1 UN3  SCITIR2 MDT-250 FNL-275 RK-Passed', 'Validated'),
-(22, 1, 1, 1, 'Summer', '2023-01-26 11:13:46', '2023-01-26 03:17:13', '#  Code Descriptive. Units  Section ~Midterm  Final  Re-Exam Remarks\n1CD-Eng101  DP-Purposive-Communication UN3  SCITIR2 MDT-275 FNL-2.50 RK-Passed\n2CD-S5103  DP-The-Contemporary-World, UN3  SCITIR2 MDT-250 FNL-2.25 RK-Passed\n3 CDNSTP101b DP-Civic-Welfare-Training-Senvice-1 UN3  SCITIR2 MDTA.75 FNLA.75 RK-Passed\n4CDSS102  DP-Reading-in-Philippine-History UN3  SCITIR2 MDT-250 FNL-2.00 RK-Passed\n5 CD-Math101  DP-Mathematics-in-Modern-World UN3  SCITIR2 MDT-A.75 FNL-2.25 RK-Passed\n6 CDPE101d  DP-Physical-Activty-Towards-Health-and Fitness-1 ~ UN-3  SCATIR2 MDT-1.00 FNLA.75 RK-Passed\n7 CDaTI1 \'DPntroduction-to-Computing UN3  SCITIR2 MDT-2.00 FNLA.75 RK-Passed\n8CDIT112 DP-Computer-Programing-1 UN3  SCITIR2 MDT-250 FNL-275 RK-Passed', 'Validated');
+(22, 1, 1, 1, 'Summer', '2023-01-26 11:13:46', '2023-01-26 03:17:13', '#  Code Descriptive. Units  Section ~Midterm  Final  Re-Exam Remarks\n1CD-Eng101  DP-Purposive-Communication UN3  SCITIR2 MDT-275 FNL-2.50 RK-Passed\n2CD-S5103  DP-The-Contemporary-World, UN3  SCITIR2 MDT-250 FNL-2.25 RK-Passed\n3 CDNSTP101b DP-Civic-Welfare-Training-Senvice-1 UN3  SCITIR2 MDTA.75 FNLA.75 RK-Passed\n4CDSS102  DP-Reading-in-Philippine-History UN3  SCITIR2 MDT-250 FNL-2.00 RK-Passed\n5 CD-Math101  DP-Mathematics-in-Modern-World UN3  SCITIR2 MDT-A.75 FNL-2.25 RK-Passed\n6 CDPE101d  DP-Physical-Activty-Towards-Health-and Fitness-1 ~ UN-3  SCATIR2 MDT-1.00 FNLA.75 RK-Passed\n7 CDaTI1 \'DPntroduction-to-Computing UN3  SCITIR2 MDT-2.00 FNLA.75 RK-Passed\n8CDIT112 DP-Computer-Programing-1 UN3  SCITIR2 MDT-250 FNL-275 RK-Passed', 'Validated'),
+(23, 1, 1, 1, '1st Semester', '2023-01-27 12:24:52', '2023-01-27 12:24:52', '#  Code Descriptive. Units  Section ~Midterm  Final  Re-Exam Remarks\n1CD-Eng101  DP-Purposive-Communication UN3  SCITIR2 MDT-275 FNL-2.50 RK-Passed\n2CD-S5103  DP-The-Contemporary-World, UN3  SCITIR2 MDT-250 FNL-2.25 RK-Passed\n3 CDNSTP101b DP-Civic-Welfare-Training-Senvice-1 UN3  SCITIR2 MDTA.75 FNLA.75 RK-Passed\n4CDSS102  DP-Reading-in-Philippine-History UN3  SCITIR2 MDT-250 FNL-2.00 RK-Passed\n5 CD-Math101  DP-Mathematics-in-Modern-World UN3  SCITIR2 MDT-A.75 FNL-2.25 RK-Passed\n6 CDPE101d  DP-Physical-Activty-Towards-Health-and Fitness-1 ~ UN-3  SCATIR2 MDT-1.00 FNLA.75 RK-Passed\n7 CDaTI1 \'DPntroduction-to-Computing UN3  SCITIR2 MDT-2.00 FNLA.75 RK-Passed\n8CDIT112 DP-Computer-Programing-1 UN3  SCITIR2 MDT-250 FNL-275 RK-Passed', 'Pending'),
+(24, 1, 1, 1, '1st Semester', '2023-01-27 12:27:40', '2023-01-27 12:27:40', '#  Code Descriptive. Units  Section ~Midterm  Final  Re-Exam Remarks\n1CD-Eng101  DP-Purposive-Communication UN3  SCITIR2 MDT-275 FNL-2.50 RK-Passed\n2CD-S5103  DP-The-Contemporary-World, UN3  SCITIR2 MDT-250 FNL-2.25 RK-Passed\n3 CDNSTP101b DP-Civic-Welfare-Training-Senvice-1 UN3  SCITIR2 MDTA.75 FNLA.75 RK-Passed\n4CDSS102  DP-Reading-in-Philippine-History UN3  SCITIR2 MDT-250 FNL-2.00 RK-Passed\n5 CD-Math101  DP-Mathematics-in-Modern-World UN3  SCITIR2 MDT-A.75 FNL-2.25 RK-Passed\n6 CDPE101d  DP-Physical-Activty-Towards-Health-and Fitness-1 ~ UN-3  SCATIR2 MDT-1.00 FNLA.75 RK-Passed\n7 CDaTI1 \'DPntroduction-to-Computing UN3  SCITIR2 MDT-2.00 FNLA.75 RK-Passed\n8CDIT112 DP-Computer-Programing-1 UN3  SCITIR2 MDT-250 FNL-275 RK-Passed', 'Pending'),
+(25, 1, 1, 1, '1st Semester', '2023-01-27 12:28:22', '2023-01-27 12:28:22', '#  Code Descriptive. Units  Section ~Midterm  Final  Re-Exam Remarks\n1CD-Eng101  DP-Purposive-Communication UN3  SCITIR2 MDT-275 FNL-2.50 RK-Passed\n2CD-S5103  DP-The-Contemporary-World, UN3  SCITIR2 MDT-250 FNL-2.25 RK-Passed\n3 CDNSTP101b DP-Civic-Welfare-Training-Senvice-1 UN3  SCITIR2 MDTA.75 FNLA.75 RK-Passed\n4CDSS102  DP-Reading-in-Philippine-History UN3  SCITIR2 MDT-250 FNL-2.00 RK-Passed\n5 CD-Math101  DP-Mathematics-in-Modern-World UN3  SCITIR2 MDT-A.75 FNL-2.25 RK-Passed\n6 CDPE101d  DP-Physical-Activty-Towards-Health-and Fitness-1 ~ UN-3  SCATIR2 MDT-1.00 FNLA.75 RK-Passed\n7 CDaTI1 \'DPntroduction-to-Computing UN3  SCITIR2 MDT-2.00 FNLA.75 RK-Passed\n8CDIT112 DP-Computer-Programing-1 UN3  SCITIR2 MDT-250 FNL-275 RK-Passed', 'Pending'),
+(26, 1, 1, 1, '1st Semester', '2023-01-27 12:29:36', '2023-01-27 12:29:36', '#  Code Descriptive. Units  Section ~Midterm  Final  Re-Exam Remarks\n1CD-Eng101  DP-Purposive-Communication UN3  SCITIR2 MDT-275 FNL-2.50 RK-Passed\n2CD-S5103  DP-The-Contemporary-World, UN3  SCITIR2 MDT-250 FNL-2.25 RK-Passed\n3 CDNSTP101b DP-Civic-Welfare-Training-Senvice-1 UN3  SCITIR2 MDTA.75 FNLA.75 RK-Passed\n4CDSS102  DP-Reading-in-Philippine-History UN3  SCITIR2 MDT-250 FNL-2.00 RK-Passed\n5 CD-Math101  DP-Mathematics-in-Modern-World UN3  SCITIR2 MDT-A.75 FNL-2.25 RK-Passed\n6 CDPE101d  DP-Physical-Activty-Towards-Health-and Fitness-1 ~ UN-3  SCATIR2 MDT-1.00 FNLA.75 RK-Passed\n7 CDaTI1 \'DPntroduction-to-Computing UN3  SCITIR2 MDT-2.00 FNLA.75 RK-Passed\n8CDIT112 DP-Computer-Programing-1 UN3  SCITIR2 MDT-250 FNL-275 RK-Passed', 'Pending'),
+(27, 1, 1, 1, '1st Semester', '2023-01-27 12:32:39', '2023-01-27 13:25:33', '#  Code Descriptive. Units  Section ~Midterm  Final  Re-Exam Remarks\n1CD-Eng101  DP-Purposive-Communication UN3  SCITIR2 MDT-275 FNL-2.50 RK-Passed\n2CD-S5103  DP-The-Contemporary-World, UN3  SCITIR2 MDT-250 FNL-2.25 RK-Passed\n3 CDNSTP101b DP-Civic-Welfare-Training-Senvice-1 UN3  SCITIR2 MDTA.75 FNLA.75 RK-Passed\n4CDSS102  DP-Reading-in-Philippine-History UN3  SCITIR2 MDT-250 FNL-2.00 RK-Passed\n5 CD-Math101  DP-Mathematics-in-Modern-World UN3  SCITIR2 MDT-A.75 FNL-2.25 RK-Passed\n6 CDPE101d  DP-Physical-Activty-Towards-Health-and Fitness-1 ~ UN-3  SCATIR2 MDT-1.00 FNLA.75 RK-Passed\n7 CDaTI1 \'DPntroduction-to-Computing UN3  SCITIR2 MDT-2.00 FNLA.75 RK-Passed\n8CDIT112 DP-Computer-Programing-1 UN3  SCITIR2 MDT-250 FNL-275 RK-Passed', 'Rejected'),
+(28, 1, 1, 1, '1st Semester', '2023-01-28 04:25:00', '2023-01-28 04:25:00', '#  Code Descriptive. Units  Section ~Midterm  Final  Re-Exam Remarks\n1CD-Eng101  DP-Purposive-Communication UN3  SCITIR2 MDT-275 FNL-2.50 RK-Passed\n2CD-S5103  DP-The-Contemporary-World, UN3  SCITIR2 MDT-250 FNL-2.25 RK-Passed\n3 CDNSTP101b DP-Civic-Welfare-Training-Senvice-1 UN3  SCITIR2 MDTA.75 FNLA.75 RK-Passed\n4CDSS102  DP-Reading-in-Philippine-History UN3  SCITIR2 MDT-250 FNL-2.00 RK-Passed\n5 CD-Math101  DP-Mathematics-in-Modern-World UN3  SCITIR2 MDT-A.75 FNL-2.25 RK-Passed\n6 CDPE101d  DP-Physical-Activty-Towards-Health-and Fitness-1 ~ UN-3  SCATIR2 MDT-1.00 FNLA.75 RK-Passed\n7 CDaTI1 \'DPntroduction-to-Computing UN3  SCITIR2 MDT-2.00 FNLA.75 RK-Passed\n8CDIT112 DP-Computer-Programing-1 UN3  SCITIR2 MDT-250 FNL-275 RK-Passed', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -264,20 +322,25 @@ CREATE TABLE `incident_reports` (
   `remarks` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `grade_details_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `incident_reports`
 --
 
-INSERT INTO `incident_reports` (`id`, `coordinator_id`, `scholar_id`, `report_type`, `action_taken`, `report_date`, `remarks`, `created_at`, `updated_at`, `status`) VALUES
-(1, 3, 1, 'sample', 'action taken', '2023-01-09', 'remarks', '2023-01-09 10:40:06', '2023-01-09 10:40:06', NULL),
-(2, 3, 1, 'Forge Signature', 'qweqwe', '2023-01-20', 'wwww', '2023-01-20 12:52:32', '2023-01-20 12:52:32', NULL),
-(3, 3, 1, 'Grade Discrepancy', 'sample action taken', '2023-01-21', 'blah blah', '2023-01-21 12:47:13', '2023-01-21 12:47:13', NULL),
-(4, 3, 1, 'No Signature', NULL, '2023-01-21', 'sample', '2023-01-21 13:22:27', '2023-01-21 13:22:27', NULL),
-(5, 3, 1, 'Grade Discrepancy', 'Pending', '2023-01-24', 'sample', '2023-01-24 13:14:59', '2023-01-24 13:14:59', NULL),
-(6, 3, 1, 'Grade Discrepancy', 'Pending', '2023-01-24', 'sample', '2023-01-24 13:15:14', '2023-01-24 13:15:14', NULL);
+INSERT INTO `incident_reports` (`id`, `coordinator_id`, `scholar_id`, `report_type`, `action_taken`, `report_date`, `remarks`, `created_at`, `updated_at`, `status`, `grade_details_id`) VALUES
+(1, 3, 1, 'sample', 'action taken', '2023-01-09', 'remarks', '2023-01-09 10:40:06', '2023-01-09 10:40:06', NULL, NULL),
+(2, 3, 1, 'Forge Signature', 'qweqwe', '2023-01-20', 'wwww', '2023-01-20 12:52:32', '2023-01-20 12:52:32', NULL, NULL),
+(3, 3, 1, 'Grade Discrepancy', 'sample action taken', '2023-01-21', 'blah blah', '2023-01-21 12:47:13', '2023-01-21 12:47:13', NULL, NULL),
+(4, 3, 1, 'No Signature', NULL, '2023-01-21', 'sample', '2023-01-21 13:22:27', '2023-01-21 13:22:27', NULL, NULL),
+(5, 3, 1, 'Grade Discrepancy', 'Pending', '2023-01-24', 'sample', '2023-01-24 13:14:59', '2023-01-24 13:14:59', NULL, NULL),
+(6, 3, 1, 'Grade Discrepancy', 'Pending', '2023-01-24', 'sample', '2023-01-24 13:15:14', '2023-01-24 13:15:14', NULL, NULL),
+(7, 3, 1, 'Grade Discrepancy', 'Pending', '2023-01-27', 'sdasdasd', '2023-01-27 13:12:31', '2023-01-27 13:12:31', NULL, NULL),
+(8, 3, 1, 'Grade Discrepancy', 'Pending', '2023-01-27', 'qwqweqwe', '2023-01-27 13:18:48', '2023-01-27 13:18:48', NULL, NULL),
+(9, 3, 1, 'Grade Discrepancy', 'Pending', '2023-01-27', 'qweqweqwe', '2023-01-27 13:24:13', '2023-01-27 13:24:13', NULL, NULL),
+(10, 3, 1, 'Grade Discrepancy', 'Pending', '2023-01-27', 'qweqweqwe', '2023-01-27 13:25:32', '2023-01-27 13:25:32', NULL, 27);
 
 -- --------------------------------------------------------
 
@@ -319,7 +382,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (21, '2023_01_19_115942_add_status_to_grade_details', 16),
 (22, '2023_01_21_131909_add_status_to_incident_report', 17),
 (23, '2023_01_21_135114_add_image_type_to_attachments', 18),
-(24, '2023_01_23_134811_create_notifications_table', 19);
+(24, '2023_01_23_134811_create_notifications_table', 19),
+(25, '2023_01_27_121219_add_notify_to_column', 20),
+(26, '2023_01_27_132153_add_grade_details_id', 21),
+(27, '2023_01_27_234135_add_student_no', 22);
 
 -- --------------------------------------------------------
 
@@ -333,10 +399,28 @@ CREATE TABLE `notifications` (
   `user_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `notification_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `notification_details` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `notify_to` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `user_id`, `user_type`, `notification_name`, `notification_details`, `status`, `created_at`, `updated_at`, `notify_to`) VALUES
+(1, 1, 'coordinator', 'Grades', 'Scholar John Sidney  Salazar has submitted his/her grades', 'completed', '2023-01-27 12:32:46', '2023-01-27 05:14:14', '3'),
+(2, 1, 'coordinator', 'Grades', 'Scholar John Sidney  Salazar has submitted his/her COR', 'completed', '2023-01-27 04:37:51', '2023-01-27 05:14:14', '3'),
+(3, 3, 'student', 'Incident Report', 'Good day. We would like to inform you that an incident report was filed to you. please check on our website to check the details of the said report.', 'completed', '2023-01-27 13:12:35', '2023-01-27 05:35:27', '1'),
+(4, 3, 'student', 'Incident Report', 'Good day. We would like to inform you that an incident report was filed to you. please check on our website to check the details of the said report.', 'completed', '2023-01-27 13:18:52', '2023-01-27 05:35:27', '1'),
+(5, 3, 'student', 'Incident Report', 'Good day. We would like to inform you that an incident report was filed to you. please check on our website to check the details of the said report.', 'completed', '2023-01-27 13:24:18', '2023-01-27 05:35:27', '1'),
+(6, 3, 'student', 'Incident Report', 'Good day. We would like to inform you that an incident report was filed to you. please check on our website to check the details of the said report.', 'completed', '2023-01-27 13:25:37', '2023-01-27 05:35:27', '1'),
+(7, 1, 'admin', 'Grades', 'Scholar named John Sidney  Salazar has submitted a new request', 'completed', '2023-01-27 13:42:29', '2023-01-27 05:55:41', '1'),
+(8, 1, 'student', 'Grades', 'Active', 'completed', '2023-01-27 06:38:17', '2023-01-27 06:40:26', '1'),
+(9, 1, 'student', 'Grades', 'house', 'completed', '2023-01-27 06:39:07', '2023-01-27 06:40:26', '1'),
+(10, 1, 'student', 'Grades', 'house', 'Pending', '2023-01-27 06:39:14', '2023-01-27 06:39:14', '2'),
+(11, 1, 'coordinator', 'Grades', 'Scholar John Sidney  Salazar has submitted his/her grades', 'completed', '2023-01-28 04:25:05', '2023-01-27 20:28:30', '3');
 
 -- --------------------------------------------------------
 
@@ -377,15 +461,18 @@ CREATE TABLE `scholars` (
   `year_level` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scholar_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `scholars`
 --
 
-INSERT INTO `scholars` (`id`, `first_name`, `last_name`, `birthday`, `age`, `address`, `number`, `gender`, `email`, `password`, `status`, `course`, `semester_start`, `semester_end`, `school_year_start`, `school_year_end`, `school`, `year_level`, `created_at`, `updated_at`, `user_type`) VALUES
-(1, 'John Sidney ', 'Salazar', '1993-08-23', '23', 'address', '09533844872', 'Male', 'email@gmail.com', 'password', 'Active', 'course', 'first_sem', 'second_sem', '2022', '2023', 'school', 'year level', '2023-01-06 05:09:37', '2023-01-26 03:19:50', NULL);
+INSERT INTO `scholars` (`id`, `first_name`, `last_name`, `birthday`, `age`, `address`, `number`, `gender`, `email`, `password`, `status`, `course`, `semester_start`, `semester_end`, `school_year_start`, `school_year_end`, `school`, `year_level`, `created_at`, `updated_at`, `user_type`, `scholar_no`) VALUES
+(1, 'John Sidney ', 'Salazar', '1993-08-23', '23', 'address', '09533844872', 'Male', 'email@gmail.com', 'password', 'On Hold', 'course', 'first_sem', 'second_sem', '2022', '2023', 'school', 'year level', '2023-01-06 05:09:37', '2023-01-27 06:39:07', NULL, NULL),
+(2, 'asdas', 'qwe', '1993-08-23', 'none', 'qweqwe', '09533844872', 'Male', 'sample@gmail.com', '12345678', 'On Hold', '12345678', 'first_sem', 'first_sem', 'qweqwe', 'qweqwe', 'qweqwe', 'qweqwe', '2023-01-27 06:13:12', '2023-01-27 06:39:14', 'scholar', NULL),
+(3, 'qweqwe', 'qweqweqwe', '1993-08-23', 'none', 'qweqwe', '09533844872', 'Male', 'qweqweqwe@gmail.com', 'qweqweqwe-1234567', 'Active', 'qweqwe', 'first_sem', 'first_sem', 'qweqwe', 'qweqwe', 'qweqwe', 'qweqwe', '2023-01-27 15:48:43', '2023-01-27 15:48:43', 'scholar', NULL);
 
 -- --------------------------------------------------------
 
@@ -412,7 +499,8 @@ CREATE TABLE `scholar_requests` (
 INSERT INTO `scholar_requests` (`id`, `scholar_id`, `request_name`, `request_details`, `request_type`, `request_date`, `status`, `created_at`, `updated_at`) VALUES
 (2, 1, 'name', 'details', 'type', '2023-01-08', 'Approved', '2023-01-08 13:02:46', '2023-01-23 06:04:25'),
 (3, 1, 'sample', 'sample', 'sample', '2023-01-24', 'Rejected', '2023-01-24 13:07:58', '2023-01-26 03:23:09'),
-(4, 1, 'sample', 'sample', 'sample', '2023-01-24', 'Approved', '2023-01-24 13:08:31', '2023-01-25 03:42:16');
+(4, 1, 'sample', 'sample', 'sample', '2023-01-24', 'Approved', '2023-01-24 13:08:31', '2023-01-25 03:42:16'),
+(5, 1, 'sample', 'sample', 'sample', '2023-01-27', 'Pending', '2023-01-27 13:42:25', '2023-01-27 13:42:25');
 
 -- --------------------------------------------------------
 
@@ -432,7 +520,8 @@ CREATE TABLE `schools` (
 --
 
 INSERT INTO `schools` (`id`, `school`, `created_at`, `updated_at`) VALUES
-(1, 'USTP', NULL, NULL);
+(1, 'USTP', NULL, NULL),
+(2, 'Liceo de Cagayan University', '2023-01-27 16:09:39', '2023-01-27 16:09:39');
 
 -- --------------------------------------------------------
 
@@ -557,13 +646,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `academmic_years`
 --
 ALTER TABLE `academmic_years`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `attachments`
 --
 ALTER TABLE `attachments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `coordinators`
@@ -581,49 +670,49 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `grades`
 --
 ALTER TABLE `grades`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
 
 --
 -- AUTO_INCREMENT for table `grade_details`
 --
 ALTER TABLE `grade_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `incident_reports`
 --
 ALTER TABLE `incident_reports`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `scholars`
 --
 ALTER TABLE `scholars`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `scholar_requests`
 --
 ALTER TABLE `scholar_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `schools`
 --
 ALTER TABLE `schools`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
