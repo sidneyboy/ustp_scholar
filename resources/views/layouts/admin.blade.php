@@ -207,6 +207,18 @@
                     <span>{{ __('Coordinator List') }}</span></a>
             </li> --}}
 
+            <li class="nav-item {{ Nav::isRoute('admin_add_academ_year') }}">
+                <a class="nav-link" href="{{ route('admin_add_academ_year') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('Academic Year(+)') }}</span></a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('admin_add_school') }}">
+                <a class="nav-link" href="{{ route('admin_add_school') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('School(+)') }}</span></a>
+            </li>
+
             <li class="nav-item {{ Nav::isRoute('scholar_page') }}">
                 <a class="nav-link" href="{{ route('scholar_page') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>

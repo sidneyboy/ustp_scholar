@@ -86,6 +86,14 @@ Route::post('/notify_student_process/', 'HomeController@notify_student_process')
 
 
 
+Route::get('/admin_add_academ_year/', 'HomeController@admin_add_academ_year')->name('admin_add_academ_year');
+Route::post('/academic_year_process/', 'HomeController@academic_year_process')->name('academic_year_process');
+
+Route::get('/admin_add_school/', 'HomeController@admin_add_school')->name('admin_add_school');
+Route::post('/add_school_process/', 'HomeController@add_school_process')->name('add_school_process');
+
+
+
 Route::get('/scholar_submitted_grades/{id}/', 'HomeController@scholar_submitted_grades')->name('scholar_submitted_grades');
 
 Route::get('/scholar_grades_view/{id}/{grade_id}', 'HomeController@scholar_grades_view')->name('scholar_grades_view');

@@ -28,6 +28,7 @@ class Scholar extends Model
         'school',
         'year_level',
         'user_type',
+        'student_no',
     ];
 
     public function grade_details()

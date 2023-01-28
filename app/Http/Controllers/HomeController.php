@@ -169,7 +169,11 @@ class HomeController extends Controller
 
     public function scholar_process(Request $request)
     {
+        //return $request->input();
+
+        $password = $request->input('last_name') . "-" . $request->input('scholar_no');
         $new = new Scholar([
+            'scholar_no' => $request->input('scholar_no'),
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'birthday' => $request->input('birthday'),
@@ -178,7 +182,7 @@ class HomeController extends Controller
             'number' => $request->input('number'),
             'gender' => $request->input('gender'),
             'email' => $request->input('email'),
-            'password' => $request->input('password'),
+            'password' => $password,
             'status' => $request->input('status'),
             'course' => $request->input('course'),
             'semester_start' => $request->input('semester_start'),
@@ -191,6 +195,10 @@ class HomeController extends Controller
         ]);
 
         $new->save();
+
+        $subject = 'DOST NOTIFICATION';
+        $messages = 'Good day. We are happy to inform you that you are officialy enrolled in DOST scholar Management Sysmtem. Here are your credentials email:' . $request->input('email') . " and password:" . $password;
+        Mail::to($request->input('email'))->send(new Send_email($subject, $messages));
 
         return redirect('scholar')->with('success', 'Successfully added new Scholar');
     }
@@ -958,5 +966,59 @@ class HomeController extends Controller
         }
 
         return redirect('scholar_page')->with('success', 'Notification successfully sent to students.');
+    }
+
+    public function admin_add_academ_year()
+    {
+        $users = User::count();
+
+        $widget = [
+            'users' => $users,
+            //...
+        ];
+
+        $notification = Notification::where('notify_to', Auth()->user()->id)->where('user_type', 'admin')->where('status', 'Pending')->get();
+
+        return view('admin_add_academ_year', compact('widget'), [
+            'notification' => $notification,
+        ]);
+    }
+
+    public function academic_year_process(Request $request)
+    {
+        $new  = new Academmic_year([
+            'school_year' => $request->input('academic_year'),
+        ]);
+
+        $new->save();
+
+        return redirect('admin_add_academ_year')->with('success', 'Successfully Added New Academic Year');
+    }
+
+    public function admin_add_school()
+    {
+        $users = User::count();
+
+        $widget = [
+            'users' => $users,
+            //...
+        ];
+
+        $notification = Notification::where('notify_to', Auth()->user()->id)->where('user_type', 'admin')->where('status', 'Pending')->get();
+
+        return view('admin_add_school', compact('widget'), [
+            'notification' => $notification,
+        ]);
+    }
+
+    public function add_school_process(Request $request)
+    {
+        $new  = new School([
+            'school' => $request->input('school'),
+        ]);
+
+        $new->save();
+
+        return redirect('admin_add_school')->with('success', 'Successfully Added New Academic Year');
     }
 }

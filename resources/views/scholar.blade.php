@@ -31,6 +31,12 @@
                     @csrf
                     <div class="card-body">
                         <div class="row">
+                        <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Scholar ID</label>
+                                    <input type="text" class="form-control" required name="scholar_no">
+                                </div>
+                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">First Name</label>
@@ -83,12 +89,12 @@
                                     <input type="email" class="form-control" required name="email">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            {{-- <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Password</label>
                                     <input type="password" class="form-control" required name="password">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Course</label>
