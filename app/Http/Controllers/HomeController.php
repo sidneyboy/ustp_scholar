@@ -312,7 +312,7 @@ class HomeController extends Controller
             $new_notification = new Notification([
                 'user_id' => $request->input('id'),
                 'notify_to' => $data->id,
-                'user_type' => 'student',
+                'user_type' => 'coordinator',
                 'notification_name' => 'Grades',
                 'notification_details' => 'Scholar ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted his/her grades',
                 'status' => 'Pending',
