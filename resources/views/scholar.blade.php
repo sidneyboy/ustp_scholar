@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="">Birthday</label>
+                                    <label for="">Birth Date</label>
                                     <input type="date" class="form-control" required name="birthday">
                                 </div>
                             </div>
@@ -103,6 +103,18 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <label for="">Semester</label>
+                                    <select name="semester" class="form-control" required>
+                                        <option value="" default>Select</option>
+                                        <option value="1st Semester">1st Semester</option>
+                                        <option value="2nd Semester">2nd Semester</option>
+                                        <option value="Summer">Summer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            {{-- <div class="col-md-4">
+                                <div class="form-group">
                                     <label for="">Semester Start</label>
                                     <select name="semester_start" class="form-control" required>
                                         <option value="" default>Select</option>
@@ -120,8 +132,8 @@
                                         <option value="second_sem">Second Sem</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
+                            </div> --}}
+                            {{-- <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">School Year Start</label>
                                     <input type="text" class="form-control" required name="school_year_start">
@@ -131,6 +143,17 @@
                                 <div class="form-group">
                                     <label for="">School Year End</label>
                                     <input type="text" class="form-control" required name="school_year_end">
+                                </div>
+                            </div> --}}
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Academic Year</label>
+                                    <select name="academic_year" class="form-control" required>
+                                        <option value="" default>Select</option>
+                                        @foreach ($academic_year as $data)
+                                            <option value="{{ $data->school_year }}">{{ $data->school_year }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">

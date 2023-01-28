@@ -161,9 +161,10 @@ class HomeController extends Controller
         ];
 
         $notification = Notification::where('notify_to', Auth()->user()->id)->where('user_type', 'admin')->where('status', 'Pending')->get();
-
+        $academic_year = Academmic_year::get();
         return view('scholar', compact('widget'), [
             'notification' => $notification,
+            'academic_year' => $academic_year,
         ]);
     }
 
@@ -249,6 +250,7 @@ class HomeController extends Controller
 
     public function scholar_submission_process(Request $request)
     {
+        
         date_default_timezone_set('Asia/Manila');
         $date = date('Y-m-d');
 
