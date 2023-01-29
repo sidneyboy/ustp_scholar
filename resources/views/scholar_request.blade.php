@@ -26,21 +26,57 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Request</div>
-                <form action="{{ route('scholar_request_process') }}" method="post">
+                <form action="{{ route('scholar_request_process') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <label for="">Request Name</label>
-                                <input type="text" class="form-control" required name="request_name">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="">Request Details</label>
-                                <input type="text" class="form-control" required name="request_details">
-                            </div>
-                            <div class="col-md-4">
                                 <label for="">Request Type</label>
-                                <input type="text" class="form-control" required name="request_type">
+                                <select name="request_type" class="form-control" id="request_type" required>
+                                    <option value="" default>Select</option>
+                                    <option value="Transfer School">Transfer School</option>
+                                    <option value="Transfer Course">Transfer Course</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4" style="display: none" id="show_school">
+                                <label for="">School</label>
+                                <select name="school" class="form-control">
+                                    <option value="" default>Select</option>
+                                    @foreach ($school as $data)
+                                        <option value="{{ $data->school }}">{{ $data->school }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4" style="display: none" id="show_course">
+                                <label for="">Course</label>
+                                <select name="course" class="form-control">
+                                    <option value="" default>Select</option>
+                                    @foreach ($course as $data)
+                                        <option value="{{ $data->course }}">{{ $data->course }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">Academic Year</label>
+                                <select name="year" class="form-control" required>
+                                    <option value="" default>Select</option>
+                                    @foreach ($year as $data)
+                                        <option value="{{ $data->school_year }}">{{ $data->school_year }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">Semester</label>
+                                <select name="semester" class="form-control" required>
+                                    <option value="" default>Select</option>
+                                    <option value="1st Semester">1st Semester</option>
+                                    <option value="2nd Semester">2nd Semester</option>
+                                    <option value="Summer">Summer</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">Reason/Attachment</label>
+                                <input type="file" name="file" required class="form-control">
                             </div>
                         </div>
                     </div>
@@ -62,21 +98,15 @@
             }
         });
 
-        //         $("#scholar_subject_proceed").on('submit', (function(e) {
-        //             e.preventDefault();
-        //             $.ajax({
-        //                 url: "/scholar_subject_proceed",
-        //                 type: "POST",
-        //                 data: new FormData(this),
-        //                 contentType: false,
-        //                 cache: false,
-        //                 processData: false,
-        //                 success: function(data) {
-        //                     $('.loading').hide();
-        //                     $('#show_number_of_subjects').html(data);
-        //                 },
-        //             });
-        //         }));
+        $("#request_type").change(function() {
+            if ($(this).val() == 'Transfer School') {
+                $('#show_school').show();
+                $('#show_course').hide();
+            } else {
+                $('#show_course').show();
+                $('#show_school').hide();
+            }
+        });
     </script>
 
 

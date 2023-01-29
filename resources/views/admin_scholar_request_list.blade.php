@@ -32,9 +32,12 @@
                             <thead>
                                 <tr>
                                     <th>Full Name</th>
-                                    <th>Request Name</th>
-                                    <th>Request Details</th>
-                                    <th>Request Type</th>
+                                    <th>Type</th>
+                                    <th>School</th>
+                                    <th>Course</th>
+                                    <th>Academic Year</th>
+                                    <th>Semester</th>
+                                    <th>Attachment</th>
                                     <th>Request Date</th>
                                     <th>Status</th>
                                 </tr>
@@ -43,12 +46,20 @@
                                 @foreach ($scholar_request as $data)
                                     <tr>
                                         <td>{{ $data->scholar->first_name }} {{ $data->scholar->last_name }}</td>
-                                        <td>{{ $data->request_name }}</td>
-                                        <td>{{ $data->request_details }}</td>
+                                        {{-- <td>{{ $data->request_name }}</td>
+                                        <td>{{ $data->request_details }}</td> --}}
                                         <td>{{ $data->request_type }}</td>
+                                        <td>{{ $data->school }}</td>
+                                        <td>{{ $data->course }}</td>
+                                        <td>{{ $data->school_year }}</td>
+                                        <td>{{ $data->semester }}</td>
+                                        <td><a href="{{ asset('/storage/' . $data->file) }}" target="_blank">View</a>
+                                        </td>
                                         <td>{{ $data->request_date }}</td>
                                         <td>
                                             @if ($data->status == 'Approved')
+                                                {{ $data->status }}
+                                            @elseif($data->status == 'Rejected')
                                                 {{ $data->status }}
                                             @else
                                                 <!-- Button trigger modal -->
@@ -87,7 +98,10 @@
                                                                     <input type="hidden" value="{{ $data->id }}"
                                                                         name="request_id">
 
-                                                                    <input type="hidden" value="{{ $data->scholar->id }}" name="scholar_id">
+                                                                    <input type="hidden" value="{{ $data->scholar->id }}"
+                                                                        name="scholar_id">
+
+                                                                    <input type="hidden" value="{{ $data->request_type }}" name="request_type">
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-sm btn-secondary"

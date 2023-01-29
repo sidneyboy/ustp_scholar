@@ -13,6 +13,8 @@ use App\Models\Academmic_year;
 use App\Models\School;
 use App\Models\Grade_details;
 use App\Models\Notification;
+use App\Models\Transfer_logs;
+use App\Models\Course;
 use App\Mail\Send_email;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -162,9 +164,11 @@ class HomeController extends Controller
 
         $notification = Notification::where('notify_to', Auth()->user()->id)->where('user_type', 'admin')->where('status', 'Pending')->get();
         $academic_year = Academmic_year::get();
+        $course = Course::get();
         return view('scholar', compact('widget'), [
             'notification' => $notification,
             'academic_year' => $academic_year,
+            'course' => $course,
         ]);
     }
 
@@ -250,7 +254,7 @@ class HomeController extends Controller
 
     public function scholar_submission_process(Request $request)
     {
-        
+
         date_default_timezone_set('Asia/Manila');
         $date = date('Y-m-d');
 
@@ -273,6 +277,8 @@ class HomeController extends Controller
                 $remarks[] = $value;
             }
         }
+
+      
 
         $new_grade_details = new Grade_details([
             'scholar_id' => $request->input('id'),
@@ -335,9 +341,14 @@ class HomeController extends Controller
         $file_file_type = $file->getClientmimeType();
         $path_file = $file->storeAs('public', $file_name);
 
+        $original_file = $request->file('original_file');
+        $original_file_name = time() . "." . $original_file->getClientOriginalExtension();
+        $original_path_file = $original_file->storeAs('public', $original_file_name);
+
         $new = new Attachments([
             'grade_details_id' => $grade_details->id,
             'attachment' => $file_name,
+            'original_file' => $original_file_name,
             'scholar_id' => $request->input('id'),
             'status' => 'Pending',
         ]);
@@ -411,7 +422,7 @@ class HomeController extends Controller
     {
 
         $scholar = Scholar::find($id);
-        $request = Scholar_request::where('scholar_id', $id)->get();
+        $request = Scholar_request::where('scholar_id', $id)->orderBy('id', 'desc')->get();
         $notification = Notification::where('notify_to', $id)->where('user_type', 'student')->where('status', 'Pending')->get();
         return view('scholar_request_page', [
             'scholar' => $scholar,
@@ -424,52 +435,166 @@ class HomeController extends Controller
     {
         $scholar = Scholar::find($id);
         $notification = Notification::where('notify_to', $id)->where('user_type', 'student')->where('status', 'Pending')->get();
+        $school = School::get();
+        $course = Course::get();
+        $year = Academmic_year::get();
         return view('scholar_request', [
             'scholar' => $scholar,
+            'school' => $school,
             'notification' => $notification,
+            'course' => $course,
+            'year' => $year,
         ])->with('id', $id);
     }
 
     public function scholar_request_process(Request $request)
     {
         //return $request->input();
+
         date_default_timezone_set('Asia/Manila');
         $date = date('Y-m-d');
-        $new = new Scholar_request([
-            'scholar_id' => $request->input('scholar_id'),
-            'request_name' => $request->input('request_name'),
-            'request_details' => $request->input('request_details'),
-            'request_type' => $request->input('request_type'),
-            'request_date' => $date,
-            'status' => 'Pending',
-        ]);
 
-        $new->save();
 
-        $admin = User::select('id', 'email')->get();
-        $academ = Academmic_year::find($request->input('academic_year_id'));
-        foreach ($admin as $key => $data) {
-            $scholar = Scholar::find($request->input('scholar_id'));
+        if ($request->input('request_type') == 'Transfer School') {
+            if ($request->input('school') != null) {
+                $attachment = $request->file('file');
+                $attachment_name =  uniqid() . "." . $attachment->getClientOriginalExtension();
+                $attachment_file_type = $attachment->getClientmimeType();
+                $path_attachment = $attachment->storeAs('public', $attachment_name);
 
-            $subject = 'DOST NOTIFICATION';
-            $messages = 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted a new request';
-            Mail::to($data->email)->send(new Send_email($subject, $messages));
+                $new = new Scholar_request([
+                    'scholar_id' => $request->input('scholar_id'),
+                    'request_type' => $request->input('request_type'),
+                    'request_date' => $date,
+                    'status' => 'Pending',
+                    'course' => 'N/A',
+                    'file' => $attachment_name,
+                    'semester' => $request->input('semester'),
+                    'school' => $request->input('school'),
+                    'school_year' => $request->input('year'),
+                ]);
 
-            $new_notification = new Notification([
-                'user_id' => $request->input('scholar_id'),
-                'notify_to' => $data->id,
-                'user_type' => 'admin',
-                'notification_name' => 'Grades',
-                'notification_details' => 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted a new request',
-                'status' => 'Pending',
-            ]);
+                $new->save();
 
-            $new_notification->save();
+                $admin = User::select('id', 'email')->get();
+                $academ = Academmic_year::find($request->input('academic_year_id'));
+                foreach ($admin as $key => $data) {
+                    $scholar = Scholar::find($request->input('scholar_id'));
+
+                    $subject = 'DOST NOTIFICATION';
+                    $messages = 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted a new request';
+                    Mail::to($data->email)->send(new Send_email($subject, $messages));
+
+                    $new_notification = new Notification([
+                        'user_id' => $request->input('scholar_id'),
+                        'notify_to' => $data->id,
+                        'user_type' => 'admin',
+                        'notification_name' => 'Grades',
+                        'notification_details' => 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted a new request',
+                        'status' => 'Pending',
+                    ]);
+
+                    $new_notification->save();
+                }
+
+                return redirect()->route('scholar_request', [
+                    'id' => $request->input('scholar_id'),
+                ])->with('success', 'Request Successful');
+            } else {
+                return redirect()->route('scholar_request', [
+                    'id' => $request->input('scholar_id'),
+                ])->with('error', 'Please select request type');
+            }
+        } elseif ($request->input('request_type') == 'Transfer Course') {
+            if ($request->input('course') != null) {
+                $attachment = $request->file('file');
+                $attachment_name =  uniqid() . "." . $attachment->getClientOriginalExtension();
+                $attachment_file_type = $attachment->getClientmimeType();
+                $path_attachment = $attachment->storeAs('public', $attachment_name);
+
+                $new = new Scholar_request([
+                    'scholar_id' => $request->input('scholar_id'),
+                    'request_type' => $request->input('request_type'),
+                    'request_date' => $date,
+                    'status' => 'Pending',
+                    'course' => $request->input('course'),
+                    'file' => $attachment_name,
+                    'semester' => $request->input('semester'),
+                    'school' => 'N/A',
+                    'school_year' => $request->input('year'),
+                ]);
+
+                $new->save();
+
+                $admin = User::select('id', 'email')->get();
+                $academ = Academmic_year::find($request->input('academic_year_id'));
+                foreach ($admin as $key => $data) {
+                    $scholar = Scholar::find($request->input('scholar_id'));
+
+                    $subject = 'DOST NOTIFICATION';
+                    $messages = 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted a new request';
+                    Mail::to($data->email)->send(new Send_email($subject, $messages));
+
+                    $new_notification = new Notification([
+                        'user_id' => $request->input('scholar_id'),
+                        'notify_to' => $data->id,
+                        'user_type' => 'admin',
+                        'notification_name' => 'Grades',
+                        'notification_details' => 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted a new request',
+                        'status' => 'Pending',
+                    ]);
+
+                    $new_notification->save();
+                }
+
+                return redirect()->route('scholar_request', [
+                    'id' => $request->input('scholar_id'),
+                ])->with('success', 'Request Successful');
+            } else {
+                return redirect()->route('scholar_request', [
+                    'id' => $request->input('scholar_id'),
+                ])->with('error', 'Please select request type');
+            }
         }
 
-        return redirect()->route('scholar_request', [
-            'id' => $request->input('scholar_id'),
-        ])->with('success', 'Request Successfull');
+
+        // date_default_timezone_set('Asia/Manila');
+        // $date = date('Y-m-d');
+        // $new = new Scholar_request([
+        //     'scholar_id' => $request->input('scholar_id'),
+        //     'request_name' => $request->input('request_name'),
+        //     'request_details' => $request->input('request_details'),
+        //     'request_type' => $request->input('request_type'),
+        //     'request_date' => $date,
+        //     'status' => 'Pending',
+        // ]);
+
+        // $new->save();
+
+        // $admin = User::select('id', 'email')->get();
+        // $academ = Academmic_year::find($request->input('academic_year_id'));
+        // foreach ($admin as $key => $data) {
+        //     $scholar = Scholar::find($request->input('scholar_id'));
+
+        //     $subject = 'DOST NOTIFICATION';
+        //     $messages = 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted a new request';
+        //     Mail::to($data->email)->send(new Send_email($subject, $messages));
+
+        //     $new_notification = new Notification([
+        //         'user_id' => $request->input('scholar_id'),
+        //         'notify_to' => $data->id,
+        //         'user_type' => 'admin',
+        //         'notification_name' => 'Grades',
+        //         'notification_details' => 'Scholar named ' . $scholar->first_name . " " . $scholar->last_name . ' has submitted a new request',
+        //         'status' => 'Pending',
+        //     ]);
+
+        //     $new_notification->save();
+        // }
+
+        // return redirect()->route('scholar_request', [
+        //     'id' => $request->input('scholar_id'),
+        // ])->with('success', 'Request Successful');
     }
 
     public function coordinator_scholar_list($id)
@@ -488,7 +613,7 @@ class HomeController extends Controller
     public function coordinator_scholar_request($id)
     {
         $coordinator = Coordinator::find($id);
-        $scholar_request = Scholar_request::get();
+        $scholar_request = Scholar_request::orderBy('id','desc')->get();
         $notification = Notification::where('notify_to', $id)->where('user_type', 'coordinator')->where('status', 'Pending')->get();
         return view('coordinator_scholar_request', [
             'coordinator' => $coordinator,
@@ -843,26 +968,102 @@ class HomeController extends Controller
     public function admin_scholar_request_process(Request $request)
     {
         //return $request->input();
-        Scholar_request::where('id', $request->input('request_id'))
-            ->update(['status' => $request->input('status')]);
+        if ($request->input('status') == 'Approved') {
+            if ($request->input('request_type') == 'Transfer Course') {
 
 
-        $scholar = Scholar::find($request->input('scholar_id'));
+                $scholar = Scholar::find($request->input('scholar_id'));
 
-        $subject = 'DOST NOTIFICATION';
-        $messages = 'We are happy to tell you that your request has been ' . $request->input('status') . ' by our coordinators. Thank you.';
-        Mail::to($scholar->email)->send(new Send_email($subject, $messages));
+                $scholar_request = Scholar_request::where('id', $request->input('request_id'))->first();
 
-        $new_notification = new Notification([
-            'user_id' => Auth()->user()->id,
-            'notify_to' => $request->input('scholar_id'),
-            'user_type' => 'student',
-            'notification_name' => 'Grades',
-            'notification_details' => 'We are happy to tell you that your request has been ' . $request->input('status') . ' by our coordinators. Thank you.',
-            'status' => 'Pending',
-        ]);
+                $new_transfer_logs = new Transfer_logs([
+                    'scholar_id' => $request->input('scholar_id'),
+                    'transfer_from' => $scholar->course,
+                    'transfer_to' => $scholar_request->course,
+                    'request_id' => $request->input('request_id'),
+                ]);
 
-        $new_notification->save();
+                $new_transfer_logs->save();
+
+                Scholar_request::where('id', $request->input('request_id'))
+                    ->update(['status' => $request->input('status')]);
+
+                Scholar::where('id', $request->input('scholar_id'))
+                    ->update(['course' => $scholar_request->course]);
+
+                $subject = 'DOST NOTIFICATION';
+                $messages = 'We are happy to inform you that your request has been ' . $request->input('status') . ' by our coordinators. Thank you.';
+                Mail::to($scholar->email)->send(new Send_email($subject, $messages));
+
+                $new_notification = new Notification([
+                    'user_id' => Auth()->user()->id,
+                    'notify_to' => $request->input('scholar_id'),
+                    'user_type' => 'student',
+                    'notification_name' => 'Grades',
+                    'notification_details' => 'We are happy to tell you that your request has been ' . $request->input('status') . ' by our coordinators. Thank you.',
+                    'status' => 'Pending',
+                ]);
+
+                $new_notification->save();
+            } elseif ($request->input('request_type') == 'Transfer School') {
+
+
+                $scholar = Scholar::find($request->input('scholar_id'));
+
+                $scholar_request = Scholar_request::find($request->input('request_id'));
+
+                $new_transfer_logs = new Transfer_logs([
+                    'scholar_id' => $request->input('scholar_id'),
+                    'transfer_from' => $scholar->school,
+                    'transfer_to' => $scholar_request->school,
+                    'request_id' => $request->input('request_id'),
+                ]);
+
+                $new_transfer_logs->save();
+
+                Scholar_request::where('id', $request->input('request_id'))
+                    ->update(['status' => $request->input('status')]);
+
+                Scholar::where('id', $request->input('scholar_id'))
+                    ->update(['school' => $scholar_request->school]);
+
+                $subject = 'DOST NOTIFICATION';
+                $messages = 'We are happy to inform you that your request has been ' . $request->input('status') . ' by our coordinators. Thank you.';
+                Mail::to($scholar->email)->send(new Send_email($subject, $messages));
+
+                $new_notification = new Notification([
+                    'user_id' => Auth()->user()->id,
+                    'notify_to' => $request->input('scholar_id'),
+                    'user_type' => 'student',
+                    'notification_name' => 'Grades',
+                    'notification_details' => 'We are happy to tell you that your request has been ' . $request->input('status') . ' by our coordinators. Thank you.',
+                    'status' => 'Pending',
+                ]);
+
+                $new_notification->save();
+            }
+        } else {
+            Scholar_request::where('id', $request->input('request_id'))
+                ->update(['status' => $request->input('status')]);
+
+
+            $scholar = Scholar::find($request->input('scholar_id'));
+
+            $subject = 'DOST NOTIFICATION';
+            $messages = 'We are sad to inform you that your request has been ' . $request->input('status') . ' by our coordinators. Thank you.';
+            Mail::to($scholar->email)->send(new Send_email($subject, $messages));
+
+            $new_notification = new Notification([
+                'user_id' => Auth()->user()->id,
+                'notify_to' => $request->input('scholar_id'),
+                'user_type' => 'student',
+                'notification_name' => 'Grades',
+                'notification_details' => 'We are happy to tell you that your request has been ' . $request->input('status') . ' by our coordinators. Thank you.',
+                'status' => 'Pending',
+            ]);
+
+            $new_notification->save();
+        }
 
 
         return redirect('admin_scholar_request_list')->with('success', 'Success');
@@ -900,12 +1101,13 @@ class HomeController extends Controller
         $scholar = Scholar::find($id);
         $grade_details = Grade_details::find($grade_id);
 
-        $grade = Grades::where('grade_details_id', $grade_id)->get();
-
+        $grades = Grades::where('grade_details_id', $grade_id)->get();
+        $notification = Notification::where('notify_to', $id)->where('user_type', 'student')->where('status', 'Pending')->get();
         return view('scholar_grades_view', [
             'scholar' => $scholar,
             'grade_details' => $grade_details,
-            'grade' => $grade,
+            'notification' => $notification,
+            'grades' => $grades,
         ])->with('id', $id);
     }
 
@@ -1022,5 +1224,32 @@ class HomeController extends Controller
         $new->save();
 
         return redirect('admin_add_school')->with('success', 'Successfully Added New Academic Year');
+    }
+
+    public function admin_add_course()
+    {
+        $users = User::count();
+
+        $widget = [
+            'users' => $users,
+            //...
+        ];
+
+        $notification = Notification::where('notify_to', Auth()->user()->id)->where('user_type', 'admin')->where('status', 'Pending')->get();
+
+        return view('admin_add_course', compact('widget'), [
+            'notification' => $notification,
+        ]);
+    }
+
+    public function add_course_process(Request $request)
+    {
+        $new = new Course([
+            'course' => $request->input('course'),
+        ]);
+
+        $new->save();
+
+        return redirect('admin_add_course')->with('success', 'Successfully Added New Course');
     }
 }

@@ -590,7 +590,7 @@
                     text
                 }
             }) => {
-                
+
                 var text_data = text;
                 var id = $('#id').val();
                 var school_id = $('#school').val();
@@ -608,27 +608,20 @@
                         }
                     },
                     error: function(error) {
-                        console.log(error);
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Image Cannot be read. Please follow correct Format',
+                            showConfirmButton: false,
+                            timer: 2500
+                        })
+
+                        location.reload();
                     }
                 });
             })
         })
 
-        //         $("#scholar_subject_proceed").on('submit', (function(e) {
-        //             e.preventDefault();
-        //             $.ajax({
-        //                 url: "/scholar_subject_proceed",
-        //                 type: "POST",
-        //                 data: new FormData(this),
-        //                 contentType: false,
-        //                 cache: false,
-        //                 processData: false,
-        //                 success: function(data) {
-        //                     $('.loading').hide();
-        //                     $('#show_number_of_subjects').html(data);
-        //                 },
-        //             });
-        //         }));
     </script>
 </body>
 

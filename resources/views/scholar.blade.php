@@ -98,7 +98,12 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Course</label>
-                                    <input type="course" class="form-control" required name="course">
+                                    <select name="course" class="form-control" required>
+                                        <option value="" default>Select</option>
+                                        @foreach ($course as $data)
+                                            <option value="{{ $data->course }}">{{ $data->course }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">

@@ -36,12 +36,12 @@
                             <div class="col-md-12">
                                 <label for="">Original Image:</label><br />
 
-                                <img src="{{ asset('/storage/' . $grade_details->attachment->attachment) }}"
-                                    alt="">
+                                <img src="{{ asset('/storage/' . $grade_details->attachment->original_file) }}"
+                                    class="img img-thumbnail">
 
                                 <input type="hidden" value="{{ $grade_details->attachment->id }}" name="attachment_id">
                             </div>
-
+                            <br /><br />
                             <div class="col-md-12">
                                 <table class="table table-bordered table-hover table-sm">
                                     <thead>

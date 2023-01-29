@@ -27,16 +27,19 @@
             <div class="card">
                 <div class="card-header">Request</div>
                 <div class="card-body">
-                    <a href="{{ url('scholar_request',['id' => $id]) }}" class="btn btn-sm float-right btn-info">+ Request</a>
+                    <a href="{{ url('scholar_request', ['id' => $id]) }}" class="btn btn-sm float-right btn-info">+
+                        Request</a>
                     <br /><br />
                     <table class="table table-bordered table-hover table-sm" id="table">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Status</th>
-                                <th>Request Name</th>
-                                <th>Request Details</th>
                                 <th>Type</th>
+                                <th>School</th>
+                                <th>Course</th>
+                                <th>Academic Year</th>
+                                <th>Semester</th>
+                                <th>Attachment</th>
                                 <th>Request Date</th>
                                 <th>Remarks</th>
                             </tr>
@@ -46,13 +49,19 @@
                                 @for ($i = 0; $i < count($request); $i++)
                                     <tr>
                                         <td>{{ $i + 1 }}</td>
-                                        <td>{{ $request[$i]->status }} </td>
-                                        <td>{{ $request[$i]->request_name }}</td>
-                                        <td>{{ $request[$i]->request_details }}</td>
+                                        {{-- <td>{{ $request[$i]->request_name }}</td>
+                                        <td>{{ $request[$i]->request_details }}</td> --}}
                                         <td>{{ $request[$i]->request_type }}</td>
+                                        <td>{{ $request[$i]->school }}</td>
+                                        <td>{{ $request[$i]->course }}</td>
+                                        <td>{{ $request[$i]->school_year }}</td>
+                                        <td>{{ $request[$i]->semester }}</td>
+                                        <td><a href="{{ asset('/storage/' . $request[$i]->file) }}"
+                                                target="_blank">View</a>
+                                        </td>
                                         <td>{{ $request[$i]->request_date }}</td>
-                                        <td>{{ $request[$i]->request_date }}</td>
-                                       
+                                        <td>{{ $request[$i]->status }}</td>
+
                                     </tr>
                                 @endfor
                             @endif

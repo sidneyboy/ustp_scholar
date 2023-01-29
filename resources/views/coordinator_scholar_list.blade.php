@@ -32,26 +32,27 @@
                             <thead>
                                 <th>Full Name</th>
                                 <th>Course</th>
-                                <th>Start</th>
+                                {{-- <th>Start</th>
                                 <th>End</th>
                                 <th>School Yr Start</th>
-                                <th>School Yr End</th>
+                                <th>School Yr End</th> --}}
                                 <th>School</th>
                                 <th>Year Level</th>
                                 <th>Status</th>
                                 <th>More Info</th>
                                 <th>Grades</th>
                                 <th>COE</th>
+                                <th>Logs</th>
                             </thead>
                             <tbody>
                                 @foreach ($scholar as $data)
                                     <tr>
                                         <td>{{ $data->first_name }} {{ $data->last_name }}</td>
                                         <td>{{ $data->course }}</td>
-                                        <td>{{ $data->semester_start }}</td>
+                                        {{-- <td>{{ $data->semester_start }}</td>
                                         <td>{{ $data->semester_end }}</td>
                                         <td>{{ $data->school_year_start }}</td>
-                                        <td>{{ $data->school_year_end }}</td>
+                                        <td>{{ $data->school_year_end }}</td> --}}
                                         <td>{{ $data->school }}</td>
                                         <td>{{ $data->year_level }}</td>
                                         <td>
@@ -296,6 +297,54 @@
                                                                                 </td>
                                                                             </tr>
                                                                         @endif
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-sm btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-sm btn-block btn-primary" data-toggle="modal"
+                                                data-target="#exampleModal{{ $data->id }}">
+                                                Logs
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal{{ $data->id }}" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Request Log
+                                                            </h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-bordered table-hover table-sm">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>From</th>
+                                                                        <th>To</th>
+                                                                        <th>Date Approved</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($data->logs as $logs)
+                                                                        <tr>
+                                                                            <td>{{ $logs->transfer_from }}</td>
+                                                                            <td>{{ $logs->transfer_to }}</td>
+                                                                            <td>{{ date('F j, Y', strtotime($logs->created_at)) }}</td>
+                                                                        </tr>
                                                                     @endforeach
                                                                 </tbody>
                                                             </table>

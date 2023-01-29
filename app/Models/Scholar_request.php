@@ -16,6 +16,11 @@ class Scholar_request extends Model
         'request_type',
         'request_date',
         'status',
+        'file',
+        'semester',
+        'school',
+        'school_year',
+        'course',
     ];
 
     public function scholar()

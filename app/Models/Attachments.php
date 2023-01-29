@@ -15,6 +15,7 @@ class Attachments extends Model
         'scholar_id',
         'status',
         'image_type',
+        'original_file',
     ];
 
     public function scholar()

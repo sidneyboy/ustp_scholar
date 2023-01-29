@@ -32,20 +32,29 @@
                             <thead>
                                 <tr>
                                     <th>Full Name</th>
-                                    <th>Request Name</th>
-                                    <th>Request Details</th>
-                                    <th>Request Type</th>
+                                    <th>Type</th>
+                                    <th>School</th>
+                                    <th>Course</th>
+                                    <th>Academic Year</th>
+                                    <th>Semester</th>
+                                    <th>Attachment</th>
                                     <th>Request Date</th>
-                                    <th>Status</th>
+                                    <th>Remarks</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($scholar_request as $data)
                                     <tr>
                                         <td>{{ $data->scholar->first_name }} {{ $data->scholar->last_name }}</td>
-                                        <td>{{ $data->request_name }}</td>
-                                        <td>{{ $data->request_details }}</td>
+                                        {{-- <td>{{ $data->request_name }}</td>
+                                        <td>{{ $data->request_details }}</td> --}}
                                         <td>{{ $data->request_type }}</td>
+                                        <td>{{ $data->school }}</td>
+                                        <td>{{ $data->course }}</td>
+                                        <td>{{ $data->school_year }}</td>
+                                        <td>{{ $data->semester }}</td>
+                                        <td><a href="{{ asset('/storage/' . $data->file) }}" target="_blank">View</a>
+                                        </td>
                                         <td>{{ $data->request_date }}</td>
                                         <td>{{ $data->status }}</td>
                                     </tr>

@@ -219,6 +219,12 @@
                     <span>{{ __('School(+)') }}</span></a>
             </li>
 
+            <li class="nav-item {{ Nav::isRoute('admin_add_course') }}">
+                <a class="nav-link" href="{{ route('admin_add_course') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{ __('Course(+)') }}</span></a>
+            </li>
+
             <li class="nav-item {{ Nav::isRoute('scholar_page') }}">
                 <a class="nav-link" href="{{ route('scholar_page') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>

@@ -96,7 +96,11 @@
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <label for="">Grade Upload</label>
+                                <label for="">Original File Upload</label>
+                                <input type="file" class="form-control" accept="image/*" name="original_file" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="">Formatted File Upload</label>
                                 <input type="file" class="form-control" accept="image/*" id="file" name="file" required>
                             </div>
                         </div>

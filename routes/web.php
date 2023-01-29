@@ -92,6 +92,9 @@ Route::post('/academic_year_process/', 'HomeController@academic_year_process')->
 Route::get('/admin_add_school/', 'HomeController@admin_add_school')->name('admin_add_school');
 Route::post('/add_school_process/', 'HomeController@add_school_process')->name('add_school_process');
 
+Route::get('/admin_add_course/', 'HomeController@admin_add_course')->name('admin_add_course');
+Route::post('/add_course_process/', 'HomeController@add_course_process')->name('add_course_process');
+
 
 
 Route::get('/scholar_submitted_grades/{id}/', 'HomeController@scholar_submitted_grades')->name('scholar_submitted_grades');

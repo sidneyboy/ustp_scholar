@@ -29,6 +29,7 @@ class Scholar extends Model
         'year_level',
         'user_type',
         'student_no',
+        'scholar_no',
     ];
 
     public function grade_details()
@@ -39,5 +40,10 @@ class Scholar extends Model
     public function attachments()
     {
         return $this->hasMany('App\Models\Attachments', 'scholar_id')->orderBy('id','desc');
+    }
+
+    public function logs()
+    {
+        return $this->hasMany('App\Models\Transfer_logs', 'scholar_id')->orderBy('id','desc');
     }
 }
