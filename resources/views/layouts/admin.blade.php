@@ -174,7 +174,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SCHOLAR MS<sup></sup></div>
+                <div class="sidebar-brand-text mx-3">ADMIN MS<sup></sup></div>
             </a>
 
             <!-- Divider -->
@@ -509,7 +509,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Alejandro RH {{ now()->year }}</span>
+                        <span>Copyright &copy; Scholar System {{ now()->year }}</span>
                     </div>
                 </div>
             </footer>

@@ -5,35 +5,50 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
-    <title>Firm</title>
+    <title>Login</title>
 
-    <style>
+    <!-- <style>
         body {
-            background-image: url('{{ asset('img/dost_welcome.png') }}');
+            background-image: url("{{ asset('img/dost_welcome.png') }}");
             background-repeat: no-repeat;
             background-size: auto;
         }
-    </style>
+    </style> -->
 </head>
 
 <body>
-    <div class="container">
-        {{-- <img src="{{ asset('/img/dostlogo.png') }}" style="width:30%" alt=""> --}}
-        <br /><br />
-        <div class="row justify-content-center">
-            <div class="col-md-4">
+    <div class="row">
+        <!-- {{-- <img src="{{ asset('/img/dostlogo.png') }}" style="width:30%" alt=""> --}} -->
+        <br/><br />
+        <div class="col-md-5 img">
+            <div class="logo">
+                 <img src="{{ asset('/img/dostlogo.png') }}">
+
+                 
+                    <h1>DOST</h1>
+                    <h3>Region X</h3>
+                
             </div>
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-4">
-                <h3 style="text-align: center;">Department of Science and Technology </h3>
+    
+        </div>
+        <div class="col-md-7 login-field">
+            
+
+            <div class="user-input">
+                <div class="line">
+                    <p><b>User</b> Login</p>
+                </div>
+               <div class="alert-stay">
+                   
+               
                 @if ($errors->any())
                     <div class="alert alert-danger border-left-danger" role="alert">
                         <ul class="pl-4 my-2">
@@ -49,6 +64,7 @@
                         {{ session('error') }}
                     </div>
                 @endif
+</div>
                 <form method="POST" action="{{ route('login_process') }}" class="user">
                     @csrf
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -66,6 +82,7 @@
                     </div>
 
                     <label>Password</label>
+
                     <div class="input-group mb-3">
                         <input id="password" type="password" required
                             class="form-control rounded-0 @error('password') is-invalid @enderror" name="password"

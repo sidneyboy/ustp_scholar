@@ -41,7 +41,7 @@
                                 <th>Status</th>
                                 <th>More Info</th>
                                 <th>Grades</th>
-                                <th>COE</th>
+                                <th>COR</th>
                                 <th>Logs</th>
                             </thead>
                             <tbody>

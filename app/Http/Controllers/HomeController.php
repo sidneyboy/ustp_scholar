@@ -339,11 +339,11 @@ class HomeController extends Controller
         $file = $request->file('file');
         $file_name = time() . "." . $file->getClientOriginalExtension();
         $file_file_type = $file->getClientmimeType();
-        $path_file = $file->storeAs('public', $file_name);
+        $path_file = $file->storeAs('storage', $file_name);
 
         $original_file = $request->file('original_file');
         $original_file_name = time() . "." . $original_file->getClientOriginalExtension();
-        $original_path_file = $original_file->storeAs('public', $original_file_name);
+        $original_path_file = $original_file->storeAs('storage', $original_file_name);
 
         $new = new Attachments([
             'grade_details_id' => $grade_details->id,
@@ -861,7 +861,7 @@ class HomeController extends Controller
         $file = $request->file('file');
         $file_name = time() . "." . $file->getClientOriginalExtension();
         $file_file_type = $file->getClientmimeType();
-        $path_file = $file->storeAs('public', $file_name);
+        $path_file = $file->storeAs('storage', $file_name);
 
         $new = new Attachments([
             'attachment' => $file_name,

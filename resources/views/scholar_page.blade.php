@@ -43,7 +43,7 @@
                                     <th>Status</th>
                                     <th>More Info</th>
                                     {{-- <th>Grades</th> --}}
-                                    <th>COE</th>
+                                    <th>COR</th>
                                     <th>Request Log</th>
                                     <th><input type="checkbox" id="select-all"></th>
                                     

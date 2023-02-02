@@ -77,7 +77,7 @@
             <li class="nav-item {{ Nav::isRoute('coordinator_scholar_coe') }}">
                 <a class="nav-link" href="{{ route('coordinator_scholar_coe', ['id' => $coordinator->id]) }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Scholar COE') }}</span></a>
+                    <span>{{ __('Scholar COR') }}</span></a>
             </li>
 
             <li class="nav-item {{ Nav::isRoute('coordinator_scholar_request') }}">
